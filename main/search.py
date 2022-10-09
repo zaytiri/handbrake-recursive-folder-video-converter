@@ -33,13 +33,12 @@ class Search:
                     file_path = root + '\\' + video.split('.')[0]
                     current_extension = video.split('.')[1]
                     command = '.\\HandBrakeCLI.exe --preset "Very Fast 1080p30" -i "{}'.format(file_path) + \
-                              self.originalFileExtensions + '" -o "{}'.format(file_path) + \
+                              current_extension + '" -o "{}'.format(file_path) + \
                               self.targetFileExtension + '"'
 
-                    # print(file_path)
                     print('Current Command: ' + command + '\n')
                     s = subprocess.run(command, shell=True, cwd=self.rootPath)
-                    # print(s)
+                    print(s)
 
                     path_name_splitted = root.split('\\')
                     parent_folder = path_name_splitted[len(path_name_splitted) - 1]

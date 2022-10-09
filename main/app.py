@@ -1,8 +1,9 @@
 import subprocess
 import sys
 import os
-import argparse
 import shutil
+
+from configure_arguments import ConfigureArguments
 
 root_path = 'C:\\Users\\ziia\\Desktop' # location of the following program: HandBrakeCLI.exe
 # folder_path = 'C:\\Users\\ziia\\Desktop\\advanced-python'
@@ -10,6 +11,8 @@ root_path = 'C:\\Users\\ziia\\Desktop' # location of the following program: Hand
 # .\HandBrakeCLI.exe --preset "Very Fast 1080p30" -i
 # .\advanced-python\01-Introduction\01-Welcome.mp4 -o
 # .\advanced-python\01-Introduction\01-Welcome.mkv
+
+arguments = ConfigureArguments().configure_arguments()
 
 try:
     folder_path = sys.argv[1]

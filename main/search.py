@@ -21,6 +21,7 @@ class Search:
 
             for video in files:
                 fileInfo = FileInfo(video, self.folderPath, self.originalFileExtensions)
+                fileInfo.process_file()
 
                 if fileInfo.isToConvert:
                     print('Current file being converted: ' + video)

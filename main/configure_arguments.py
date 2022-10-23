@@ -26,18 +26,18 @@ class ConfigureArguments:
         if exists(self.fileName) and not len(open(self.fileName).readlines()) == 0:
             self.areConfigsSaved = True
 
-        self.add_arguments()
+        self.__add_arguments()
 
         self.originalArguments = self.args.parse_arguments()
 
         if not self.areConfigsSaved:
-            self.create_config_file()
-            return self.get_config_file_entries()
+            self.__create_config_file()
+            return self.__get_config_file_entries()
 
-        self.overwrite_config_file()
-        return self.get_config_file_entries()
+        self.__overwrite_config_file()
+        return self.__get_config_file_entries()
 
-    def add_arguments(self):
+    def __add_arguments(self):
         """
         configures and adds the arguments required for the program
         """
@@ -61,7 +61,7 @@ class ConfigureArguments:
         self.args.add_arguments([self.arguments.delete_folder.abrName, self.arguments.delete_folder.fullName], str, required=False,
                                 arg_help_message='name of the folder containing original files. default is: \'TO-DELETE\'', default='TO-DELETE')
 
-    def create_config_file(self):
+    def __create_config_file(self):
         """
         creates a new file and writes all mandatory arguments
         """
@@ -82,7 +82,7 @@ class ConfigureArguments:
         configFile.write(self.originalArguments.target[0])
         configFile.close()
 
-    def overwrite_config_file(self):
+    def __overwrite_config_file(self):
         """
         checks whether the argument value must be replaced in the configuration file
         """
@@ -124,7 +124,7 @@ class ConfigureArguments:
         configFile.writelines(lines)
         configFile.close()
 
-    def get_config_file_entries(self):
+    def __get_config_file_entries(self):
         """
         gets all argument values saved in the configuration file and returns them for easy access by the main program
         :return: all argument values either from the configuration file or the command line

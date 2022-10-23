@@ -71,10 +71,15 @@ class ConfigureArguments:
 
         configFile.write(self.arguments.extensions.name + '==')
         for ext in self.originalArguments.extensions:
+            if not ext.startswith('.'):
+                ext = '.' + ext
             configFile.write(ext + ',')
         configFile.write('\n')
 
-        configFile.write(self.arguments.target.name + '==' + self.originalArguments.target[0])
+        configFile.write(self.arguments.target.name + '==')
+        if not self.originalArguments.target[0].startswith('.'):
+            configFile.write('.')
+        configFile.write(self.originalArguments.target[0])
         configFile.close()
 
     def overwrite_config_file(self):
@@ -100,6 +105,8 @@ class ConfigureArguments:
                 pass
             lines[2] = 'extensions=='
             for ext in self.originalArguments.extensions:
+                if not ext.startswith('.'):
+                    ext = '.' + ext
                 lines[2] += ext + ','
             lines[2] += '\n'
         except AttributeError:
@@ -107,7 +114,10 @@ class ConfigureArguments:
 
         try:
             if not self.originalArguments.target[0] == lines[3].split('==')[1]:
-                lines[3] = 'target==' + self.originalArguments.target[0]
+                lines[3] = 'target=='
+                if not self.originalArguments.target[0].startswith('.'):
+                    lines[3] += '.'
+                lines[3] += self.originalArguments.target[0]
         except AttributeError:
             pass
 
@@ -126,9 +136,6 @@ class ConfigureArguments:
 
         extensions = lines[2].split('==')[1].split(',')
         extensions.pop()
-        for ext in extensions:
-            if not ext.startswith('.'):
-                extensions[extensions.index(ext)] = '.' + ext
         self.arguments.extensions.set_argument_value(extensions)
 
         self.arguments.target.set_argument_value(lines[3].split('==')[1].strip('\n'))

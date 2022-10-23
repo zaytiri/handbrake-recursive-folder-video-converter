@@ -1,6 +1,9 @@
 import os
 import shutil
 import subprocess
+import sys
+
+from entities.file_info import FileInfo
 
 
 class Search:
@@ -11,32 +14,23 @@ class Search:
         self.targetFileExtension = target_file_extension
         self.toDeleteFolderName = to_delete_folder_name
 
-    def video_file_has_desired_extension(self, filename):
-        for ext in self.originalFileExtensions:
-            if ext in filename:
-                return True
-        return False
-
     def search(self):
         for root, dirs, files in os.walk(self.folderPath):
-            # print('root: ' + str(root))
-            # print('dirs: ' + str(dirs))
-            # print('files: ' + str(files))
-
             if self.toDeleteFolderName in root:
                 continue
 
             for video in files:
-                if self.video_file_has_desired_extension(video):
+                fileInfo = FileInfo(video, self.folderPath, self.originalFileExtensions)
+
+                if fileInfo.isToConvert:
                     print('Current file being converted: ' + video)
 
-                    file_path = root + '\\' + video.split('.')[0]
-                    current_extension = video.split('.')[1]
-                    command = '.\\HandBrakeCLI.exe --preset "Very Fast 1080p30" -i "{}'.format(file_path) + \
-                              current_extension + '" -o "{}'.format(file_path) + \
+                    command = '.\\HandBrakeCLI.exe --preset "Very Fast 1080p30" -i "{}'.format(fileInfo.fileAbsolutePath) + \
+                              fileInfo.extension + '" -o "{}'.format(fileInfo.fileAbsolutePath) + \
                               self.targetFileExtension + '"'
 
                     print('Current Command: ' + command + '\n')
+                    sys.exit()
                     s = subprocess.run(command, shell=True, cwd=self.rootPath)
                     print(s)
 

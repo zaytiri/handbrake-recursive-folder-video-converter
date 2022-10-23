@@ -1,9 +1,8 @@
 import os
 import shutil
-import subprocess
-import sys
 
 from entities.file_info import FileInfo
+from command import Command
 
 
 class Search:
@@ -24,22 +23,13 @@ class Search:
                 fileInfo.process_file()
 
                 if fileInfo.isToConvert:
-                    print('Current file being converted: ' + video)
+                    print('Current file being converted: ' + fileInfo.fileNameOnly)
 
-                    command = '.\\HandBrakeCLI.exe --preset "Very Fast 1080p30" -i "{}'.format(fileInfo.fileAbsolutePath) + \
-                              fileInfo.extension + '" -o "{}'.format(fileInfo.fileAbsolutePath) + \
-                              self.targetFileExtension + '"'
-
-                    print('Current Command: ' + command + '\n')
-
-                    s = subprocess.run(command, shell=True, cwd=self.rootPath)
-                    print(s)
+                    handbrake = Command(self.rootPath)
+                    handbrake.run_command(fileInfo, self.targetFileExtension)
 
                     path_name_splitted = root.split('\\')
                     parent_folder = path_name_splitted[len(path_name_splitted) - 1]
-
-                    # print(path_name_splitted)
-                    # print(parent_folder)
 
                     # create a folder to keep files already encoded and to be deleted later
                     to_delete_folder = ''

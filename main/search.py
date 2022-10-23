@@ -7,12 +7,12 @@ from entities.file_info import FileInfo
 
 
 class Search:
-    def __init__(self, root_path, folder_path, original_file_extensions, target_file_extension, to_delete_folder_name):
-        self.folderPath = folder_path
-        self.rootPath = root_path
-        self.originalFileExtensions = original_file_extensions
-        self.targetFileExtension = target_file_extension
-        self.toDeleteFolderName = to_delete_folder_name
+    def __init__(self, arguments):
+        self.folderPath = arguments.folderPathToConvert.value
+        self.rootPath = arguments.root.value
+        self.originalFileExtensions = arguments.originalExtensions.value
+        self.targetFileExtension = arguments.targetExtension.value
+        self.toDeleteFolderName = arguments.deletedFolder.value
 
     def search(self):
         for root, dirs, files in os.walk(self.folderPath):

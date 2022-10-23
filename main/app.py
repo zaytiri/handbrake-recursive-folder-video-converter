@@ -9,12 +9,7 @@ from search import Search
 
 arguments = ConfigureArguments().configure_arguments()
 
-folder_path = arguments.convert.value
-original_file_extension = arguments.extensions.value
-target_file_extension = arguments.target.value
-to_delete_folder_name = arguments.delete_folder.value
-
-response = input('"' + folder_path + '" is going to be modified permanently. Are you sure you want to continue? \n [Y/N]')
+response = input('"' + arguments.folderPathToConvert.value + '" is going to be modified permanently. Are you sure you want to continue? \n [Y/N]')
 
 if response == 'N':
     sys.exit()
@@ -22,7 +17,7 @@ elif response == 'Y':
     print('All files found with the a ', end="")
 
     first = True
-    for extension in original_file_extension:
+    for extension in arguments.originalExtensions.value:
         if first:
             print(extension, end="")
             first = False
@@ -30,8 +25,8 @@ elif response == 'Y':
 
         print(' or ' + extension, end="")
 
-    print(' extension are going to be converted to ' + target_file_extension + ' extension and be kept in the "' + to_delete_folder_name + '" '
+    print(' extension are going to be converted to ' + arguments.targetExtension.value + ' extension and be kept in the "' + arguments.deletedFolder.value + '" '
                                                                                                                                            'folder.\n')
 
-    videos = Search(arguments.root.value, arguments.convert.value, arguments.extensions.value, arguments.target.value, arguments.delete_folder.value)
+    videos = Search(arguments)
     videos.search()

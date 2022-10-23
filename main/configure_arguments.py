@@ -51,19 +51,19 @@ class ConfigureArguments:
                                                  'example: '
                                                  '--root \'C:\\path\\to\\folder\'')
 
-        self.args.add_arguments([self.arguments.convert.abrName, self.arguments.convert.fullName], str, required=not self.areConfigsSaved,
+        self.args.add_arguments([self.arguments.folderPathToConvert.abrName, self.arguments.folderPathToConvert.fullName], str, required=not self.areConfigsSaved,
                                 arg_help_message='absolute path to the folder with convertible videos. example: '
                                                  '--convert \'C:\\path\\to\\folder\'')
 
-        self.args.add_arguments([self.arguments.extensions.abrName, self.arguments.extensions.fullName], str, action='extend', nargs='+',
+        self.args.add_arguments([self.arguments.originalExtensions.abrName, self.arguments.originalExtensions.fullName], str, action='extend', nargs='+',
                                 required=not self.areConfigsSaved,
                                 arg_help_message='list of video\'s extensions to find and convert (with or without \'.\'). example: --extensions '
                                                  '.mp4 m4v')
 
-        self.args.add_arguments([self.arguments.target.abrName, self.arguments.target.fullName], str, required=not self.areConfigsSaved,
+        self.args.add_arguments([self.arguments.targetExtension.abrName, self.arguments.targetExtension.fullName], str, required=not self.areConfigsSaved,
                                 arg_help_message='a target video extension to apply when a video is converted')
 
-        self.args.add_arguments([self.arguments.delete_folder.abrName, self.arguments.delete_folder.fullName], str, required=False,
+        self.args.add_arguments([self.arguments.deletedFolder.abrName, self.arguments.deletedFolder.fullName], str, required=False,
                                 arg_help_message='name of the folder containing original files. default is: \'TO-DELETE\'', default='TO-DELETE')
 
     def __create_config_file(self):
@@ -72,16 +72,16 @@ class ConfigureArguments:
         """
         configFile = open(self.fileName, 'w')
         configFile.write(self.arguments.root.name + '==' + self.originalArguments.root[0] + '\n')
-        configFile.write(self.arguments.convert.name + '==' + self.originalArguments.convert[0] + '\n')
+        configFile.write(self.arguments.folderPathToConvert.name + '==' + self.originalArguments.convert[0] + '\n')
 
-        configFile.write(self.arguments.extensions.name + '==')
+        configFile.write(self.arguments.originalExtensions.name + '==')
         for ext in self.originalArguments.extensions:
             if not ext.startswith('.'):
                 ext = '.' + ext
             configFile.write(ext + ',')
         configFile.write('\n')
 
-        configFile.write(self.arguments.target.name + '==')
+        configFile.write(self.arguments.targetExtension.name + '==')
         if not self.originalArguments.target[0].startswith('.'):
             configFile.write('.')
         configFile.write(self.originalArguments.target[0])
@@ -137,14 +137,14 @@ class ConfigureArguments:
         lines = open(self.fileName).readlines()
 
         self.arguments.root.set_argument_value(lines[0].split('==')[1].strip('\n'))
-        self.arguments.convert.set_argument_value(lines[1].split('==')[1].strip('\n'))
+        self.arguments.folderPathToConvert.set_argument_value(lines[1].split('==')[1].strip('\n'))
 
         extensions = lines[2].split('==')[1].split(',')
         extensions.pop()
-        self.arguments.extensions.set_argument_value(extensions)
+        self.arguments.originalExtensions.set_argument_value(extensions)
 
-        self.arguments.target.set_argument_value(lines[3].split('==')[1].strip('\n'))
-        self.arguments.delete_folder.set_argument_value(self.originalArguments.delete_folder)
+        self.arguments.targetExtension.set_argument_value(lines[3].split('==')[1].strip('\n'))
+        self.arguments.deletedFolder.set_argument_value(self.originalArguments.delete_folder)
 
         return self.arguments
 

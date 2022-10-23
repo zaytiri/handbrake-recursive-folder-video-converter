@@ -7,7 +7,7 @@ class CommandArguments:
     """
     def __init__(self):
         self.root = Argument('root', '-r', '--root')
-        self.convert = Argument('convert', '-c', '--convert')
-        self.extensions = Argument('extensions', '-e', '--extensions')
-        self.target = Argument('target', '-t', '--target')
-        self.delete_folder = Argument('delete_folder', '-d', '--delete-folder')
+        self.folderPathToConvert = Argument('convert', '-c', '--convert')
+        self.originalExtensions = Argument('extensions', '-e', '--extensions')
+        self.targetExtension = Argument('target', '-t', '--target')
+        self.deletedFolder = Argument('delete_folder', '-d', '--delete-folder')

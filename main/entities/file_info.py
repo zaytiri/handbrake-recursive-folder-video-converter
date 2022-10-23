@@ -11,8 +11,14 @@ class FileInfo:
         self.__fileExtensionsToConvert = fileExtensionsToConvert
 
     def process_file(self):
+        self.__process_file_name()
         self.__process_extension_file()
         self.__process_absolute_path()
+
+    def __process_file_name(self):
+        fileName = self.__name.split('.')
+        fileName.pop()
+        self.fileNameOnly = '.'.join(fileName)
 
     def __process_extension_file(self):
         for ext in self.__fileExtensionsToConvert:

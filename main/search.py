@@ -31,7 +31,7 @@ class Search:
                               self.targetFileExtension + '"'
 
                     print('Current Command: ' + command + '\n')
-                    sys.exit()
+
                     s = subprocess.run(command, shell=True, cwd=self.rootPath)
                     print(s)
 
@@ -52,14 +52,16 @@ class Search:
                         os.mkdir(to_delete_folder)
 
                     # copy original mp4 file to a folder to be deleted later and remove said file from original location
-                    original = r'{}'.format(file_path) + self.originalFileExtensions
+                    original = r'{}'.format(fileInfo.fileAbsolutePath) + fileInfo.extension
 
                     new_folder = to_delete_folder + '\\' + parent_folder
                     if not os.path.isdir(new_folder):
                         os.mkdir(new_folder)
 
-                    target = r'{}\{}'.format(new_folder, video)
+                    target = r'{}\{}'.format(new_folder, fileInfo.fileNameOnly + fileInfo.extension)
+
+                    print(target)
 
                     shutil.copyfile(original, target)
 
-                    os.remove(file_path + self.originalFileExtensions)
+                    os.remove(fileInfo.fileAbsolutePath + fileInfo.extension)

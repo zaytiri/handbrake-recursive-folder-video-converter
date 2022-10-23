@@ -1,3 +1,4 @@
+import sys
 from os.path import exists
 
 from services.arguments_service import ArgumentsService
@@ -29,6 +30,10 @@ class ConfigureArguments:
         self.__add_arguments()
 
         self.originalArguments = self.args.parse_arguments()
+
+        if self.__are_target_and_original_extensions_the_same():
+            print('ERROR: target extension cannot be the same as any of the original file extensions.')
+            sys.exit()
 
         if not self.areConfigsSaved:
             self.__create_config_file()
@@ -142,3 +147,9 @@ class ConfigureArguments:
         self.arguments.delete_folder.set_argument_value(self.originalArguments.delete_folder)
 
         return self.arguments
+
+    def __are_target_and_original_extensions_the_same(self):
+        for ext in self.originalArguments.extensions:
+            if ext in self.originalArguments.target[0]:
+                return True
+        return False

@@ -16,7 +16,7 @@ class Command:
         print(s)
 
     def __basic_command(self, fileInfo, targetExtension):
-        return '.\\HandBrakeCLI.exe --preset "Very Fast 1080p30" -i "{}'.format(fileInfo.fileAbsolutePath) + \
-                  fileInfo.extension + '" -o "{}'.format(fileInfo.fileAbsolutePath) + \
-                  targetExtension + '"'
+        return '.\\HandBrakeCLI.exe --preset "Very Fast 1080p30" -i "{}'.format(fileInfo.absolutePath) + \
+               fileInfo.extension + '" -o "{}'.format(fileInfo.absolutePath) + \
+               targetExtension + '"'
 

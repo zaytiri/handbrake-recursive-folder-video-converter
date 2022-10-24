@@ -1,26 +1,6 @@
 import os.path
 
 
-def create_directory(path, newFolder):
-    return os.path.join(path, newFolder)
-
-
-def create_folder(path, newFolder):
-    newDirectory = create_directory(path, newFolder)
-    if not os.path.isdir(newDirectory):
-        os.mkdir(newDirectory)
-
-    return newDirectory
-
-
-def search_through_directory(path):
-    return os.walk(path)
-
-
-def remove_directory(path):
-    os.remove(path)
-
-
 class Directory:
     currentFolder = ''
     lastFolderPath = ''
@@ -35,3 +15,19 @@ class Directory:
 
     def get_current_folder(self):
         self.currentFolder = os.path.basename(os.path.normpath(self.__root))
+
+    def create(self, newFolder):
+        return os.path.join(self.__root, newFolder)
+
+    def create_folder(self, newFolder):
+        newDirectory = self.create(newFolder)
+        if not os.path.isdir(newDirectory):
+            os.mkdir(newDirectory)
+
+        return newDirectory
+
+    def search_through(self):
+        return os.walk(self.__root)
+
+    def remove(self):
+        os.remove(self.__root)

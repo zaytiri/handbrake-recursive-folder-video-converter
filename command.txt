@@ -1,1 +1,0 @@
-python main.py 'C:\Users\ziia\Desktop\to convert' mp4 mkv

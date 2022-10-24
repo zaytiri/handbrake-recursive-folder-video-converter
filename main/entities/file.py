@@ -1,5 +1,5 @@
 import shutil
-import directory
+from .directory import Directory
 
 
 class File:
@@ -31,12 +31,14 @@ class File:
         copy original video file to a folder to be deleted later. removes said file from original location.
         :param newPath: new location for the video file
         """
+        directory = Directory(newPath)
         original = r'{}'.format(self.absolutePath) + self.extension
-        target = directory.create_directory(newPath, self.nameOnly + self.extension)
+        target = directory.create(self.nameOnly + self.extension)
 
         shutil.copyfile(original, target)
 
-        directory.remove_directory(self.absolutePath + self.extension)
+        directory = Directory(self.absolutePath + self.extension)
+        directory.remove()
 
     def __process_file_name(self):
         fileName = self.__name.split('.')
@@ -51,4 +53,5 @@ class File:
         return False
 
     def __process_absolute_path(self):
-        self.absolutePath = directory.create_directory(self.__root, self.nameOnly)
+        directory = Directory(self.__root)
+        self.absolutePath = directory.create(self.nameOnly)

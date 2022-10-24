@@ -27,8 +27,10 @@ class Search:
                     handbrake.run_command(file, self.targetFileExtension)
 
                     rootDirectory = Directory(root)
+
                     newDeleteDirectory = Directory(rootDirectory.lastFolderPath)
                     toDeleteFolderPath = newDeleteDirectory.create_folder(self.toDeleteFolderName)
+
                     newDeletedFolderDirectory = Directory(toDeleteFolderPath)
                     newDeletedFolderPath = newDeletedFolderDirectory.create_folder(rootDirectory.currentFolder)
 

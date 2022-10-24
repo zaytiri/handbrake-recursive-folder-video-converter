@@ -1,9 +1,10 @@
 import subprocess
 
-"""
-here it will go th future feature about choosing a default comand versus a command inserted by the user
-"""
+
 class Command:
+    """
+    here it will go the future feature about choosing a default command versus a command inserted by the user
+    """
     command = ''
 
     def __init__(self, rootPath):
@@ -19,4 +20,3 @@ class Command:
         return '.\\HandBrakeCLI.exe --preset "Very Fast 1080p30" -i "{}'.format(fileInfo.absolutePath) + \
                fileInfo.extension + '" -o "{}'.format(fileInfo.absolutePath) + \
                targetExtension + '"'
-

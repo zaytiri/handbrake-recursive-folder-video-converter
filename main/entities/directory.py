@@ -1,4 +1,5 @@
 import os.path
+from os.path import exists
 
 
 class Directory:
@@ -31,3 +32,6 @@ class Directory:
 
     def remove(self):
         os.remove(self.__root)
+
+    def exists(self):
+        return exists(self.__root)

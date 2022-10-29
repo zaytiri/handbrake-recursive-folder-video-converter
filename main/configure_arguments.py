@@ -3,6 +3,7 @@ from os.path import exists
 
 from services.arguments_service import ArgumentsService
 from entities.command_arguments import CommandArguments
+from entities.config_file import ConfigurationFile
 
 
 class ConfigureArguments:
@@ -11,36 +12,34 @@ class ConfigureArguments:
     configuration file for easy frequent use. This way the user only has to configure the first time it runs the program or if the configuration
     file does not exist.
     """
-    fileName = 'config.txt'
 
     def __init__(self):
         self.args = ArgumentsService()  # configure name, description, etc
-        self.areConfigsSaved = False
         self.originalArguments = None
         self.arguments = CommandArguments()
+        self.areConfigsSaved = False
 
     def configure_arguments(self):
         """
         create and configure arguments to save in a configuration file
         :return: returns all arguments either from the command line or saved configuration file
         """
-        if exists(self.fileName) and not len(open(self.fileName).readlines()) == 0:
-            self.areConfigsSaved = True
+
+        configFile = ConfigurationFile()
+
+        self.areConfigsSaved = configFile.is_configured()
 
         self.__add_arguments()
 
         self.originalArguments = self.args.parse_arguments()
 
-        if self.__are_target_and_original_extensions_the_same():
+        if self.__target_and_original_extensions_are_the_same():
             print('ERROR: target extension cannot be the same as any of the original file extensions.')
             sys.exit()
 
-        if not self.areConfigsSaved:
-            self.__create_config_file()
-            return self.__get_config_file_entries()
+        configFile.set_original_arguments(self.originalArguments)
 
-        self.__overwrite_config_file()
-        return self.__get_config_file_entries()
+        return configFile.process()
 
     def __add_arguments(self):
         """
@@ -66,90 +65,12 @@ class ConfigureArguments:
         self.args.add_arguments([self.arguments.deletedFolder.abrName, self.arguments.deletedFolder.fullName], str, required=False,
                                 arg_help_message='name of the folder containing original files. default is: \'TO-DELETE\'', default='TO-DELETE')
 
-    def __create_config_file(self):
-        """
-        creates a new file and writes all mandatory arguments
-        """
-        configFile = open(self.fileName, 'w')
-        configFile.write(self.arguments.root.name + '==' + self.originalArguments.root[0] + '\n')
-        configFile.write(self.arguments.folderPathToConvert.name + '==' + self.originalArguments.convert[0] + '\n')
-
-        configFile.write(self.arguments.originalExtensions.name + '==')
-        for ext in self.originalArguments.extensions:
-            if not ext.startswith('.'):
-                ext = '.' + ext
-            configFile.write(ext + ',')
-        configFile.write('\n')
-
-        configFile.write(self.arguments.targetExtension.name + '==')
-        if not self.originalArguments.target[0].startswith('.'):
-            configFile.write('.')
-        configFile.write(self.originalArguments.target[0])
-        configFile.close()
-
-    def __overwrite_config_file(self):
-        """
-        checks whether the argument value must be replaced in the configuration file
-        """
-        lines = open(self.fileName).readlines()
-        configFile = open(self.fileName, 'w')
+    def __target_and_original_extensions_are_the_same(self):
         try:
-            if not self.originalArguments.root[0] == lines[0].split('==')[1]:
-                lines[0] = 'root==' + self.originalArguments.root[0] + '\n'
-        except AttributeError:
-            pass
-
-        try:
-            if not self.originalArguments.convert[0] == lines[1].split('==')[1]:
-                lines[1] = 'convert==' + self.originalArguments.convert[0] + '\n'
-        except AttributeError:
-            pass
-
-        try:
-            if self.originalArguments.extensions:
-                pass
-            lines[2] = 'extensions=='
             for ext in self.originalArguments.extensions:
-                if not ext.startswith('.'):
-                    ext = '.' + ext
-                lines[2] += ext + ','
-            lines[2] += '\n'
+                if ext in self.originalArguments.target[0]:
+                    return True
+            return False
         except AttributeError:
-            pass
+            return False
 
-        try:
-            if not self.originalArguments.target[0] == lines[3].split('==')[1]:
-                lines[3] = 'target=='
-                if not self.originalArguments.target[0].startswith('.'):
-                    lines[3] += '.'
-                lines[3] += self.originalArguments.target[0]
-        except AttributeError:
-            pass
-
-        configFile.writelines(lines)
-        configFile.close()
-
-    def __get_config_file_entries(self):
-        """
-        gets all argument values saved in the configuration file and returns them for easy access by the main program
-        :return: all argument values either from the configuration file or the command line
-        """
-        lines = open(self.fileName).readlines()
-
-        self.arguments.root.set_argument_value(lines[0].split('==')[1].strip('\n'))
-        self.arguments.folderPathToConvert.set_argument_value(lines[1].split('==')[1].strip('\n'))
-
-        extensions = lines[2].split('==')[1].split(',')
-        extensions.pop()
-        self.arguments.originalExtensions.set_argument_value(extensions)
-
-        self.arguments.targetExtension.set_argument_value(lines[3].split('==')[1].strip('\n'))
-        self.arguments.deletedFolder.set_argument_value(self.originalArguments.delete_folder)
-
-        return self.arguments
-
-    def __are_target_and_original_extensions_the_same(self):
-        for ext in self.originalArguments.extensions:
-            if ext in self.originalArguments.target[0]:
-                return True
-        return False

@@ -5,16 +5,13 @@ from .directory import Directory
 
 class ConfigurationFile:
     name = 'config.txt'
-    originalArguments = None
+    original_arguments = None
     arguments = CommandArguments()
-    fileConfigurations = []
-    currentFileLines = []
+    file_configurations = []
+    current_file_lines = []
 
-    def __init__(self):
-        pass
-
-    def set_original_arguments(self, originalArguments):
-        self.originalArguments = originalArguments
+    def set_original_arguments(self, original_arguments):
+        self.original_arguments = original_arguments
 
     def process(self):
         self.__create()
@@ -23,7 +20,7 @@ class ConfigurationFile:
 
     def is_configured(self):
         directory = Directory(self.name)
-        if directory.exists() and not len(self.__get_lines()) == 0:
+        if directory.exists() and len(self.__get_lines()) != 0:
             return True
         return False
 
@@ -32,64 +29,64 @@ class ConfigurationFile:
         return line.split('==')[1]
 
     def __write(self, lines):
-        openedConfigFile = open(self.name, 'w')
-        openedConfigFile.writelines(lines)
-        openedConfigFile.close()
+        opened_config_file = open(self.name, 'w')
+        opened_config_file.writelines(lines)
+        opened_config_file.close()
 
     def __get_lines(self):
         return open(self.name).readlines()
 
-    def __process_configuration_line(self, configurationLine):
+    def __process_configuration_line(self, configuration_line):
 
-        if configurationLine.name not in self.originalArguments:
-            configurationLine.set_configuration(self.__get_current_configuration(self.currentFileLines[configurationLine.index]).strip('\n'))
+        if configuration_line.name not in self.original_arguments:
+            configuration_line.set_configuration(self.__get_current_configuration(self.currentFileLines[configuration_line.index]).strip('\n'))
         else:
-            newArgumentValue = getattr(self.originalArguments, configurationLine.name)
-            if len(newArgumentValue) == 1:
-                newArgumentValue = newArgumentValue[0]
+            new_argument_value = getattr(self.original_arguments, configuration_line.name)
+            if len(new_argument_value) == 1:
+                new_argument_value = new_argument_value[0]
 
-            configurationLine.set_configuration(newArgumentValue)
+            configuration_line.set_configuration(new_argument_value)
 
-            if isinstance(configurationLine, OriginalExtensionsLine) or isinstance(configurationLine, TargetLine):
-                configurationLine.add_initial_dot()
+            if isinstance(configuration_line, OriginalExtensionsLine) or isinstance(configuration_line, TargetLine):
+                configuration_line.add_initial_dot()
 
-        self.fileConfigurations.append(configurationLine)
-        return configurationLine.get_formatted()
+        self.file_configurations.append(configuration_line)
+        return configuration_line.get_formatted()
 
     def __create(self):
         """
         creates a new file and writes all mandatory arguments
         """
         if self.is_configured():
-            self.currentFileLines = self.__get_lines()
+            self.current_file_lines = self.__get_lines()
 
-        newFile = ''
+        new_file = ''
 
-        rootConfiguration = ConfigurationLine(self.arguments.root.name, 0)
-        newFile += self.__process_configuration_line(rootConfiguration)
+        root_configuration = ConfigurationLine(self.arguments.root.name, 0)
+        new_file += self.__process_configuration_line(root_configuration)
 
-        pathToConvertConfiguration = ConfigurationLine(self.arguments.folderPathToConvert.name, 1)
-        newFile += self.__process_configuration_line(pathToConvertConfiguration)
+        path_to_convert_configuration = ConfigurationLine(self.arguments.folder_path_to_convert.name, 1)
+        new_file += self.__process_configuration_line(path_to_convert_configuration)
 
-        extensionsConfiguration = OriginalExtensionsLine(self.arguments.originalExtensions.name, 2)
-        newFile += self.__process_configuration_line(extensionsConfiguration)
+        extensions_configuration = OriginalExtensionsLine(self.arguments.original_extensions.name, 2)
+        new_file += self.__process_configuration_line(extensions_configuration)
 
-        targetExtensionConfiguration = TargetLine(self.arguments.targetExtension.name, 3)
-        newFile += self.__process_configuration_line(targetExtensionConfiguration)
+        target_extension_configuration = TargetLine(self.arguments.target_extension.name, 3)
+        new_file += self.__process_configuration_line(target_extension_configuration)
 
-        self.__write(newFile)
+        self.__write(new_file)
 
     def __get_configurations(self):
         """
         gets all argument values saved in the configuration file and returns them for easy access by the main program
         :return: all argument values either from the configuration file or the command line
         """
-        self.arguments.root.set_argument_value(self.fileConfigurations[0].configuration)
-        self.arguments.folderPathToConvert.set_argument_value(self.fileConfigurations[1].configuration)
+        self.arguments.root.set_argument_value(self.file_configurations[0].configuration)
+        self.arguments.folder_path_to_convert.set_argument_value(self.file_configurations[1].configuration)
 
-        self.arguments.originalExtensions.set_argument_value(self.fileConfigurations[2].configuration)
+        self.arguments.original_extensions.set_argument_value(self.file_configurations[2].configuration)
 
-        self.arguments.targetExtension.set_argument_value(self.fileConfigurations[3].configuration)
-        self.arguments.deletedFolder.set_argument_value(self.originalArguments.delete_folder)
+        self.arguments.target_extension.set_argument_value(self.file_configurations[3].configuration)
+        self.arguments.deleted_folder.set_argument_value(self.original_arguments.delete_folder)
 
         return self.arguments

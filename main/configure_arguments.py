@@ -15,9 +15,9 @@ class ConfigureArguments:
 
     def __init__(self):
         self.args = ArgumentsService()  # configure name, description, etc
-        self.originalArguments = None
+        self.original_arguments = None
         self.arguments = CommandArguments()
-        self.areConfigsSaved = False
+        self.are_configs_saved = False
 
     def configure_arguments(self):
         """
@@ -25,50 +25,50 @@ class ConfigureArguments:
         :return: returns all arguments either from the command line or saved configuration file
         """
 
-        configFile = ConfigurationFile()
+        config_file = ConfigurationFile()
 
-        self.areConfigsSaved = configFile.is_configured()
+        self.are_configs_saved = config_file.is_configured()
 
         self.__add_arguments()
 
-        self.originalArguments = self.args.parse_arguments()
+        self.original_arguments = self.args.parse_arguments()
 
         if self.__target_and_original_extensions_are_the_same():
             print('ERROR: target extension cannot be the same as any of the original file extensions.')
             sys.exit()
 
-        configFile.set_original_arguments(self.originalArguments)
+        config_file.set_original_arguments(self.original_arguments)
 
-        return configFile.process()
+        return config_file.process()
 
     def __add_arguments(self):
         """
         configures and adds the arguments required for the program
         """
-        self.args.add_arguments([self.arguments.root.abrName, self.arguments.root.fullName], str, required=not self.areConfigsSaved,
+        self.args.add_arguments([self.arguments.root.abbreviation_name, self.arguments.root.fullName], str, required=not self.are_configs_saved,
                                 arg_help_message='absolute path to the following file: HandBrakeCLI.exe. '
                                                  'example: '
                                                  '--root \'C:\\path\\to\\folder\'')
 
-        self.args.add_arguments([self.arguments.folderPathToConvert.abrName, self.arguments.folderPathToConvert.fullName], str, required=not self.areConfigsSaved,
+        self.args.add_arguments([self.arguments.folder_path_to_convert.abbreviation_name, self.arguments.folder_path_to_convert.full_name], str, required=not self.are_configs_saved,
                                 arg_help_message='absolute path to the folder with convertible videos. example: '
                                                  '--convert \'C:\\path\\to\\folder\'')
 
-        self.args.add_arguments([self.arguments.originalExtensions.abrName, self.arguments.originalExtensions.fullName], str, action='extend', nargs='+',
-                                required=not self.areConfigsSaved,
+        self.args.add_arguments([self.arguments.original_extensions.abbreviation_name, self.arguments.original_extensions.full_name], str, action='extend', nargs='+',
+                                required=not self.are_configs_saved,
                                 arg_help_message='list of video\'s extensions to find and convert (with or without \'.\'). example: --extensions '
                                                  '.mp4 m4v')
 
-        self.args.add_arguments([self.arguments.targetExtension.abrName, self.arguments.targetExtension.fullName], str, required=not self.areConfigsSaved,
+        self.args.add_arguments([self.arguments.target_extension.abbreviation_name, self.arguments.target_extension.full_name], str, required=not self.are_configs_saved,
                                 arg_help_message='a target video extension to apply when a video is converted')
 
-        self.args.add_arguments([self.arguments.deletedFolder.abrName, self.arguments.deletedFolder.fullName], str, required=False,
+        self.args.add_arguments([self.arguments.deleted_folder.abbreviation_name, self.arguments.deleted_folder.full_name], str, required=False,
                                 arg_help_message='name of the folder containing original files. default is: \'TO-DELETE\'', default='TO-DELETE')
 
     def __target_and_original_extensions_are_the_same(self):
         try:
-            for ext in self.originalArguments.extensions:
-                if ext in self.originalArguments.target[0]:
+            for ext in self.original_arguments.extensions:
+                if ext in self.original_arguments.target[0]:
                     return True
             return False
         except AttributeError:

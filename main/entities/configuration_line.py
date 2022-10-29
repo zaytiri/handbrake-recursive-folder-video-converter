@@ -51,10 +51,10 @@ class TargetLine(ConfigurationLine):
         super().__init__(name, index)
 
     def add_initial_dot(self):
-        newTargetLine = ''
+        new_target_line = ''
 
         if not self.configuration.startswith('.'):
-            newTargetLine += '.'
-        newTargetLine += self.configuration
+            new_target_line += '.'
+        new_target_line += self.configuration
 
-        self.configuration = newTargetLine
+        self.configuration = new_target_line

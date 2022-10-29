@@ -4,13 +4,13 @@ from .directory import Directory
 
 class VideoFile:
     extension = ''
-    absolutePath = ''
-    nameOnly = ''
+    absolute_path = ''
+    name_only = ''
 
-    def __init__(self, name, root, fileExtensionsToConvert):
+    def __init__(self, name, root, file_extensions_to_convert):
         self.__name = name
         self.__root = root
-        self.__fileExtensionsToConvert = fileExtensionsToConvert
+        self.__file_extensions_to_convert = file_extensions_to_convert
 
     def process(self):
         """
@@ -26,27 +26,27 @@ class VideoFile:
 
         return True
 
-    def copy_to(self, newPath):
+    def copy_to(self, new_path):
         """
         copy original video file to a folder to be deleted later. removes said file from original location.
-        :param newPath: new location for the video file
+        :param new_path: new location for the video file
         """
-        directory = Directory(newPath)
-        original = r'{}'.format(self.absolutePath) + self.extension
-        target = directory.create(self.nameOnly + self.extension)
+        directory = Directory(new_path)
+        original = r'{}'.format(self.absolute_path) + self.extension
+        target = directory.create(self.name_only + self.extension)
 
         shutil.copyfile(original, target)
 
-        directory = Directory(self.absolutePath + self.extension)
+        directory = Directory(self.absolute_path + self.extension)
         directory.remove()
 
     def __process_file_name(self):
-        fileName = self.__name.split('.')
-        fileName.pop()
-        self.nameOnly = '.'.join(fileName)
+        file_name = self.__name.split('.')
+        file_name.pop()
+        self.name_only = '.'.join(file_name)
 
     def __process_extension_file(self):
-        for ext in self.__fileExtensionsToConvert:
+        for ext in self.__file_extensions_to_convert:
             if ext in self.__name:
                 self.extension = ext
                 return True
@@ -54,4 +54,4 @@ class VideoFile:
 
     def __process_absolute_path(self):
         directory = Directory(self.__root)
-        self.absolutePath = directory.create(self.nameOnly)
+        self.absolute_path = directory.create(self.name_only)

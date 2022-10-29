@@ -5,33 +5,33 @@ from command import Command
 
 class Search:
     def __init__(self, arguments):
-        self.folderPath = arguments.folderPathToConvert.value
-        self.rootPath = arguments.root.value
-        self.originalFileExtensions = arguments.originalExtensions.value
-        self.targetFileExtension = arguments.targetExtension.value
-        self.toDeleteFolderName = arguments.deletedFolder.value
+        self.folder_path = arguments.folderPathToConvert.value
+        self.root_path = arguments.root.value
+        self.original_file_extensions = arguments.originalExtensions.value
+        self.target_file_extension = arguments.targetExtension.value
+        self.to_delete_folder_name = arguments.deletedFolder.value
 
     def search(self):
-        mainDirectory = Directory(self.folderPath)
-        for root, dirs, files in mainDirectory.search_through():
-            if self.toDeleteFolderName in root:
+        main_directory = Directory(self.folder_path)
+        for root, dirs, files in main_directory.search_through():
+            if self.to_delete_folder_name in root:
                 continue
 
             for video in files:
-                file = VideoFile(video, self.folderPath, self.originalFileExtensions)
+                current_video_file = VideoFile(video, self.folder_path, self.original_file_extensions)
 
-                if file.process():
-                    print('Current file being converted: ' + file.nameOnly)
+                if current_video_file.process():
+                    print('Current current_video_file being converted: ' + current_video_file.name_only)
 
-                    # handbrake = Command(self.rootPath)
-                    # handbrake.run_command(file, self.targetFileExtension)
+                    handbrake = Command(self.root_path)
+                    handbrake.run_command(current_video_file, self.target_file_extension)
 
-                    rootDirectory = Directory(root)
+                    root_directory = Directory(root)
 
-                    newDeleteDirectory = Directory(rootDirectory.lastFolderPath)
-                    toDeleteFolderPath = newDeleteDirectory.create_folder(self.toDeleteFolderName)
+                    new_delete_directory = Directory(root_directory.last_folder_path)
+                    to_delete_folder_path = new_delete_directory.create_folder(self.to_delete_folder_name)
 
-                    newDeletedFolderDirectory = Directory(toDeleteFolderPath)
-                    newDeletedFolderPath = newDeletedFolderDirectory.create_folder(rootDirectory.currentFolder)
+                    new_deleted_folder_directory = Directory(to_delete_folder_path)
+                    new_deleted_folder_path = new_deleted_folder_directory.create_folder(root_directory.current_folder)
 
-                    # file.copy_to(newDeletedFolderPath)
+                    current_video_file.copy_to(new_deleted_folder_path)

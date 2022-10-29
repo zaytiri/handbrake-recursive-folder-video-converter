@@ -2,7 +2,7 @@ import shutil
 from .directory import Directory
 
 
-class File:
+class VideoFile:
     extension = ''
     absolutePath = ''
     nameOnly = ''

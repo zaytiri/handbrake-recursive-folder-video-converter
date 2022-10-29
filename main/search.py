@@ -1,4 +1,4 @@
-from entities.file import File
+from entities.video_file import VideoFile
 from entities.directory import Directory
 from command import Command
 
@@ -18,13 +18,13 @@ class Search:
                 continue
 
             for video in files:
-                file = File(video, self.folderPath, self.originalFileExtensions)
+                file = VideoFile(video, self.folderPath, self.originalFileExtensions)
 
                 if file.process():
                     print('Current file being converted: ' + file.nameOnly)
 
-                    handbrake = Command(self.rootPath)
-                    handbrake.run_command(file, self.targetFileExtension)
+                    # handbrake = Command(self.rootPath)
+                    # handbrake.run_command(file, self.targetFileExtension)
 
                     rootDirectory = Directory(root)
 
@@ -34,4 +34,4 @@ class Search:
                     newDeletedFolderDirectory = Directory(toDeleteFolderPath)
                     newDeletedFolderPath = newDeletedFolderDirectory.create_folder(rootDirectory.currentFolder)
 
-                    file.copy_to(newDeletedFolderPath)
+                    # file.copy_to(newDeletedFolderPath)

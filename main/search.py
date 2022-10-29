@@ -5,11 +5,11 @@ from command import Command
 
 class Search:
     def __init__(self, arguments):
-        self.folder_path = arguments.folderPathToConvert.value
+        self.folder_path = arguments.folder_path_to_convert.value
         self.root_path = arguments.root.value
-        self.original_file_extensions = arguments.originalExtensions.value
-        self.target_file_extension = arguments.targetExtension.value
-        self.to_delete_folder_name = arguments.deletedFolder.value
+        self.original_file_extensions = arguments.original_extensions.value
+        self.target_file_extension = arguments.target_extension.value
+        self.to_delete_folder_name = arguments.deleted_folder.value
 
     def search(self):
         main_directory = Directory(self.folder_path)

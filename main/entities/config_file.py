@@ -39,7 +39,7 @@ class ConfigurationFile:
     def __process_configuration_line(self, configuration_line):
 
         if configuration_line.name not in self.original_arguments:
-            configuration_line.set_configuration(self.__get_current_configuration(self.currentFileLines[configuration_line.index]).strip('\n'))
+            configuration_line.set_configuration(self.__get_current_configuration(self.current_file_lines[configuration_line.index]).strip('\n'))
         else:
             new_argument_value = getattr(self.original_arguments, configuration_line.name)
             if len(new_argument_value) == 1:

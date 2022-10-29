@@ -45,7 +45,7 @@ class ConfigureArguments:
         """
         configures and adds the arguments required for the program
         """
-        self.args.add_arguments([self.arguments.root.abbreviation_name, self.arguments.root.fullName], str, required=not self.are_configs_saved,
+        self.args.add_arguments([self.arguments.root.abbreviation_name, self.arguments.root.full_name], str, required=not self.are_configs_saved,
                                 arg_help_message='absolute path to the following file: HandBrakeCLI.exe. '
                                                  'example: '
                                                  '--root \'C:\\path\\to\\folder\'')

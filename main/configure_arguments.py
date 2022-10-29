@@ -1,9 +1,8 @@
 import sys
-from os.path import exists
 
 from services.arguments_service import ArgumentsService
 from entities.command_arguments import CommandArguments
-from entities.config_file import ConfigurationFile
+from main.configurations.config_file import ConfigurationFile
 
 
 class ConfigureArguments:

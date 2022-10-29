@@ -1,5 +1,5 @@
 from entities.video_file import VideoFile
-from entities.directory import Directory
+from main.services.directory import Directory
 from command import Command
 
 
@@ -23,8 +23,8 @@ class Search:
                 if current_video_file.process():
                     print('Current current_video_file being converted: ' + current_video_file.name_only)
 
-                    handbrake = Command(self.root_path)
-                    handbrake.run_command(current_video_file, self.target_file_extension)
+                    # handbrake = Command(self.root_path)
+                    # handbrake.run_command(current_video_file, self.target_file_extension)
 
                     root_directory = Directory(root)
 
@@ -34,4 +34,4 @@ class Search:
                     new_deleted_folder_directory = Directory(to_delete_folder_path)
                     new_deleted_folder_path = new_deleted_folder_directory.create_folder(root_directory.current_folder)
 
-                    current_video_file.copy_to(new_deleted_folder_path)
+                    # current_video_file.copy_to(new_deleted_folder_path)

@@ -1,10 +1,10 @@
-from .command_arguments import CommandArguments
+from main.entities.command_arguments import CommandArguments
 from .configuration_line import ConfigurationLine, OriginalExtensionsLine, TargetLine
-from .directory import Directory
+from main.services.directory import Directory
 
 
 class ConfigurationFile:
-    name = 'config.txt'
+    configuration_file_path = 'configurations\\config.txt'
     original_arguments = None
     arguments = CommandArguments()
     file_configurations = []
@@ -19,7 +19,7 @@ class ConfigurationFile:
         return self.__get_configurations()
 
     def is_configured(self):
-        directory = Directory(self.name)
+        directory = Directory(self.configuration_file_path)
         if directory.exists() and len(self.__get_lines()) != 0:
             return True
         return False
@@ -29,12 +29,12 @@ class ConfigurationFile:
         return line.split('==')[1]
 
     def __write(self, lines):
-        opened_config_file = open(self.name, 'w')
+        opened_config_file = open(self.configuration_file_path, 'w')
         opened_config_file.writelines(lines)
         opened_config_file.close()
 
     def __get_lines(self):
-        return open(self.name).readlines()
+        return open(self.configuration_file_path).readlines()
 
     def __process_configuration_line(self, configuration_line):
 

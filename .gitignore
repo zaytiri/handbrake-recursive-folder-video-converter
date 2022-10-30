@@ -152,3 +152,4 @@ cython_debug/
 #.idea/
 command.txt
 main/configurations/config.txt
+.idea/sonarlint

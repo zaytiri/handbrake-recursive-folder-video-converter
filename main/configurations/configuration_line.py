@@ -15,17 +15,15 @@ class ConfigurationLine:
         self.configuration = configuration
 
 
-class OriginalExtensionsLine(ConfigurationLine):
+class MultipleConfigurationLine(ConfigurationLine):
     def __init__(self, name, index):
         super().__init__(name, index)
 
+    # todo: the following should not be in this class, should be in a separate class only responsible for putting initial dots.
     def add_initial_dot(self):
         for ext in self.configuration:
             if not ext.startswith('.'):
                 self.configuration[self.configuration.index(ext)] = '.' + ext
-
-    def set_configuration(self, configuration):
-        self.configuration = configuration.split(',')
 
     def get_formatted(self):
         if self.configuration == '':
@@ -45,7 +43,7 @@ class OriginalExtensionsLine(ConfigurationLine):
         return self.name + '==' + extensions + '\n'
 
 
-class TargetLine(ConfigurationLine):
+class InitialDotLine(ConfigurationLine):
 
     def __init__(self, name, index):
         super().__init__(name, index)

@@ -2,7 +2,7 @@ import sys
 
 from services.arguments_service import ArgumentsService
 from entities.command_arguments import CommandArguments
-from main.configurations.config_file import ConfigurationFile
+from main.configurations.configurations import Configurations
 
 
 class ConfigureArguments:
@@ -24,7 +24,7 @@ class ConfigureArguments:
         :return: returns all arguments either from the command line or saved configuration file
         """
 
-        config_file = ConfigurationFile()
+        config_file = Configurations()
 
         self.are_configs_saved = config_file.is_configured()
 

@@ -1,3 +1,4 @@
+import os.path
 import shutil
 from main.services.directory import Directory
 
@@ -6,11 +7,14 @@ class VideoFile:
     extension = ''
     absolute_path = ''
     name_only = ''
+    original_size = 0
+    converted_size = 0
 
-    def __init__(self, name, root, file_extensions_to_convert):
+    def __init__(self, name, root, file_extensions_to_convert, target_extension):
         self.__name = name
         self.__root = root
         self.__file_extensions_to_convert = file_extensions_to_convert
+        self.target_extension = target_extension
 
     def process(self):
         """
@@ -26,11 +30,20 @@ class VideoFile:
 
         return True
 
+    def __process_file_sizes_before_after(self):
+        self.original_size = os.path.getsize(self.absolute_path + self.extension)
+
+        new_file = Directory(self.absolute_path + self.target_extension)
+
+        self.converted_size = os.path.getsize(new_file.root)
+
     def copy_to(self, new_path):
         """
         copy original video file to a folder to be deleted later. removes said file from original location.
         :param new_path: new location for the video file
         """
+        self.__process_file_sizes_before_after()
+
         directory = Directory(new_path)
         original = r'{}'.format(self.absolute_path) + self.extension
         target = directory.create(self.name_only + self.extension)

@@ -1,6 +1,7 @@
 from main.entities.command_arguments import CommandArguments
 from .configuration_line import ConfigurationLine, OriginalExtensionsLine, TargetLine
 from main.services.directory import Directory
+from main.services.file import File
 
 
 class ConfigurationFile:
@@ -9,6 +10,7 @@ class ConfigurationFile:
     arguments = CommandArguments()
     file_configurations = []
     current_file_lines = []
+    config_file = File(configuration_file_path)
 
     def set_original_arguments(self, original_arguments):
         self.original_arguments = original_arguments
@@ -20,21 +22,13 @@ class ConfigurationFile:
 
     def is_configured(self):
         directory = Directory(self.configuration_file_path)
-        if directory.exists() and len(self.__get_lines()) != 0:
+        if directory.exists() and len(self.config_file.get_lines()) != 0:
             return True
         return False
 
     @staticmethod
     def __get_current_configuration(line):
         return line.split('==')[1]
-
-    def __write(self, lines):
-        opened_config_file = open(self.configuration_file_path, 'w')
-        opened_config_file.writelines(lines)
-        opened_config_file.close()
-
-    def __get_lines(self):
-        return open(self.configuration_file_path).readlines()
 
     def __process_configuration_line(self, configuration_line):
 
@@ -58,7 +52,7 @@ class ConfigurationFile:
         creates a new file and writes all mandatory arguments
         """
         if self.is_configured():
-            self.current_file_lines = self.__get_lines()
+            self.current_file_lines = self.config_file.get_lines()
 
         new_file = ''
 
@@ -74,7 +68,7 @@ class ConfigurationFile:
         target_extension_configuration = TargetLine(self.arguments.target_extension.name, 3)
         new_file += self.__process_configuration_line(target_extension_configuration)
 
-        self.__write(new_file)
+        self.config_file.write_lines(new_file, 'w')
 
     def __get_configurations(self):
         """

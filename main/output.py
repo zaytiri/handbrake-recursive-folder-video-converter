@@ -13,7 +13,9 @@ class Output:
     files_not_encoded = []
 
     def __init__(self, absolute_path_parent):
-        self.file = File(absolute_path_parent + '\\output.txt')
+        date_now = '['+str(date.today().year)+'-'+str(date.today().month)+'-'+str(date.today().day)+' '+str(datetime.utcnow().hour)+'-'+str(
+            datetime.utcnow().minute)+']'
+        self.file = File(absolute_path_parent + '\\output' + date_now + '.txt')
         self.file.open('a')
 
     def add_file_information(self, video_file, successful):

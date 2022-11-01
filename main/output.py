@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 
 from main.services.file import File
 from main.utils.bytes_conversion import set_converted_bytes_with_label
@@ -17,7 +17,7 @@ class Output:
         self.file.open('a')
 
     def add_file_information(self, video_file, successful):
-        self.__add_line('[' + str(datetime.now()) + ']\nThe following video file was converted: ' + video_file.name_only)
+        self.__add_line('[' + str(datetime.utcnow()) + ']\nThe following video file was converted: ' + video_file.name_only)
 
         if not successful:
             self.__add_line('\t*** This file was not encoded successfully! ***\n')
@@ -34,14 +34,15 @@ class Output:
         self.reduced_files_size += video_file.converted_size
 
     def add_final_output(self):
-        self.__add_line('[' + str(datetime.now()) + ']\nFinal Statistics:')
+        self.__add_line('[' + str(datetime.utcnow()) + ']\nFinal Statistics:')
         self.__set_message_with_size('\tOriginal size of all searched video files: ', self.original_files_size)
         self.__set_message_with_size('\tReduced size of all converted video files: ', self.reduced_files_size)
 
         space_saved = self.original_files_size - self.reduced_files_size
         self.__set_message_with_size('\tSpace in disk saved: ', space_saved)
 
-        self.__add_line('\n\tThe following video files were not encoded successfully:')
+        if len(self.files_not_encoded) != 0:
+            self.__add_line('\n\tThe following video files were not encoded successfully:')
         for files in self.files_not_encoded:
             self.__add_line('\t--> ' + files)
 

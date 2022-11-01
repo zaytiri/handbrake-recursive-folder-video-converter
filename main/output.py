@@ -29,6 +29,9 @@ class Output:
         self.__set_message_with_size('\tOriginal size of all searched video files: ', self.original_files_size)
         self.__set_message_with_size('\tReduced size of all converted video files: ', self.reduced_files_size)
 
+        space_saved = self.original_files_size - self.reduced_files_size
+        self.__set_message_with_size('\tSpace in disk saved: ', space_saved)
+
         self.file.close()
 
     def __set_message_with_size(self, message, size):

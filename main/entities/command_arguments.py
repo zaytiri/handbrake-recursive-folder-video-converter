@@ -12,6 +12,7 @@ class CommandArguments:
         self.original_extensions = Argument('extensions', '-e', '--extensions')
         self.target_extension = Argument('target', '-t', '--target')
         self.deleted_folder = Argument('delete_folder', '-d', '--delete-folder')
+        self.custom_command = Argument('custom_command', '-cc', '--custom-command')
 
     def to_list(self):
         arguments = [
@@ -19,7 +20,8 @@ class CommandArguments:
             self.folder_path_to_convert,
             self.original_extensions,
             self.target_extension,
-            self.deleted_folder
+            self.deleted_folder,
+            self.custom_command
         ]
         return arguments
 
@@ -29,3 +31,4 @@ class CommandArguments:
         self.original_extensions = arguments[2]
         self.target_extension = arguments[3]
         self.deleted_folder = arguments[4]
+        self.custom_command = arguments[5]

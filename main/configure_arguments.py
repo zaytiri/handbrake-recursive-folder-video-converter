@@ -40,6 +40,8 @@ class ConfigureArguments:
 
         return config_file.process()
 
+    # todo: maybe change the following method location to the command arguments file
+    # todo: add the argument help message, default value, etc into the argument class to then be used in here
     def __add_arguments(self):
         """
         configures and adds the arguments required for the program
@@ -63,6 +65,17 @@ class ConfigureArguments:
 
         self.args.add_arguments([self.arguments.deleted_folder.abbreviation_name, self.arguments.deleted_folder.full_name], str, required=False,
                                 arg_help_message='name of the folder containing original files. default is: \'TO-DELETE\'', default='TO-DELETE')
+
+        self.args.add_arguments([self.arguments.custom_command.abbreviation_name, self.arguments.custom_command.full_name], str, required=False,
+                                arg_help_message='a custom command inserted by the user. placeholders must be used for the original file and '
+                                                 'the converted file. this command is supposed to work dynamically for a list of files '
+                                                 'searched in a folder, so:\n'
+                                                 'example: "--preset "Very Fast 1080p30" -i {of} -o {cf}"\n'
+                                                 '{of} => original file\n'
+                                                 '{cf} => converted file\n'
+                                                 'strings in the command must be between single quotes ->\'\'<-\n'
+                                                 'if the user wants to no longer use the custom command saved in the configs, the following can be '
+                                                 'inputted instead: -cc OFF (this is also the default settings)')
 
     def __target_and_original_extensions_are_the_same(self):
         try:

@@ -11,6 +11,7 @@ class Search:
         self.original_file_extensions = arguments.original_extensions.value
         self.target_file_extension = arguments.target_extension.value
         self.to_delete_folder_name = arguments.deleted_folder.value
+        self.custom_command = arguments.custom_command.value
 
     def search(self):
         main_directory = Directory(self.folder_path)
@@ -20,12 +21,17 @@ class Search:
             if self.to_delete_folder_name in root:
                 continue
 
+            # todo: move this for loop outside of the current for somehow
             for video in files:
                 current_video_file = VideoFile(video, self.folder_path, self.original_file_extensions, self.target_file_extension)
 
                 if current_video_file.process():
                     handbrake = Command(self.root_path)
-                    successful = handbrake.run_command(current_video_file, self.target_file_extension)
+
+                    if self.custom_command != '' and self.custom_command.upper() != 'off'.upper():
+                        handbrake.set_custom_command(self.custom_command)
+
+                    successful = handbrake.run_command(current_video_file)
 
                     root_directory = Directory(root)
 

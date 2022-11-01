@@ -35,7 +35,10 @@ class Configurations:
 
         if configuration.name not in self.original_arguments:
             self.file.set_lines()
-            configuration.set_configuration(self.__get_current_configuration(self.file.get_lines()[configuration.index]).strip('\n'))
+            try:
+                configuration.set_configuration(self.__get_current_configuration(self.file.get_lines()[configuration.index]).strip('\n'))
+            except IndexError:
+                pass
         else:
             new_argument_value = getattr(self.original_arguments, configuration.name)
             if len(new_argument_value) == 1:

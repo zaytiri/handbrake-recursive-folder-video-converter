@@ -77,7 +77,15 @@ in [this link](https://handbrake.fr/downloads.php) under 'Downloads->Other->Comm
 
 ## Installation
 
-???
+```
+pip --no-cache-dir install havc
+```
+
+or,
+
+```
+pip3 --no-cache-dir install havc
+```
 
 <a name="usage"></a>
 
@@ -105,35 +113,26 @@ in [this link](https://handbrake.fr/downloads.php) under 'Downloads->Other->Comm
 Any additional help can be provided if the following command is run:
 
 ```
--h
+havc --help
 ```
 
 Example of the initial command:
 
 ```
--r "C:\path\to\Desktop" -c "C:\path\to\Desktop\folder to convert" -e mp4 mkv -t m4v
+havc -r "C:\path\to\Desktop" -c "C:\path\to\Desktop\folder to convert" -e mp4 mkv -t m4v
 ```
 
-After this, the config.txt file will be configured and similar to the following:
+After this, the config.txt file will be configured and then the following command becomes valid (always using the previous configurations):
 
 ```
-root==C:\path\to\Desktop
-convert==C:\path\to\Desktop\to convert
-extensions==.mp4,.mkv
-target==.m4v
-delete_folder==TO-DELETE
-```
-
-With the config.txt file configured, the following command it's valid:
-
-```
+havc
 ```
 
 If any argument have to be modified just run the command with the necessary argument, for instance, if the extensions
 have to be modified, we simply run:
 
 ```
--e mov .avi mp4
+havc -e mov .avi mp4
 ```
 
 <a name="support"></a>

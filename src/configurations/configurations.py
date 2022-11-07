@@ -1,7 +1,7 @@
-from main.entities.command_arguments import CommandArguments
+from src.entities.command_arguments import CommandArguments
 from .configuration_line import ConfigurationLine, MultipleConfigurationLine, InitialDotLine
-from main.services.directory import Directory
-from main.services.file import File
+from src.services.directory import Directory
+from src.services.file import File
 
 
 class Configurations:
@@ -77,7 +77,7 @@ class Configurations:
 
     def __get_configurations(self):
         """
-        gets all argument values saved in the configuration file and returns them for easy access by the main program
+        gets all argument values saved in the configuration file and returns them for easy access by the src program
         :return: all argument values either from the configuration file or the command line
         """
         arguments = self.arguments.to_list()

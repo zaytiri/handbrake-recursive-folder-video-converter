@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/handbrake_subfolders.iml" filepath="$PROJECT_DIR$/.idea/handbrake_subfolders.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/havc.iml" filepath="$PROJECT_DIR$/.idea/havc.iml" />
     </modules>
   </component>
 </project>

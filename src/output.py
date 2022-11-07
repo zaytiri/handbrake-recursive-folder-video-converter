@@ -1,7 +1,7 @@
 from datetime import date, datetime
 
-from main.services.file import File
-from main.utils.bytes_conversion import set_converted_bytes_with_label
+from src.services.file import File
+from src.utils.bytes_conversion import set_converted_bytes_with_label
 
 
 class Output:

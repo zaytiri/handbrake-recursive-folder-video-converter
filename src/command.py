@@ -1,7 +1,7 @@
 import shutil
 import subprocess
 
-from main.utils.split_string import split_string
+from src.utils.split_string import split_string
 
 
 class Command:

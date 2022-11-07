@@ -1,6 +1,6 @@
 import os.path
 import shutil
-from main.services.directory import Directory
+from src.services.directory import Directory
 
 
 class VideoFile:

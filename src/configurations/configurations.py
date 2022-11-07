@@ -8,7 +8,7 @@ class Configurations:
     original_arguments = None
     arguments = CommandArguments()
     current_configurations = []
-    path = 'configurations\\config.txt'
+    path = 'config.txt'
     file = File(path)
 
     def set_original_arguments(self, original_arguments):
@@ -34,7 +34,11 @@ class Configurations:
     def __process_configuration(self, configuration):
 
         if configuration.name not in self.original_arguments:
-            self.file.set_lines()
+            try:
+                self.file.set_lines()
+            except FileNotFoundError:
+                pass
+
             try:
                 configuration.set_configuration(self.__get_current_configuration(self.file.get_lines()[configuration.index]).strip('\n'))
             except IndexError:

@@ -1,12 +1,15 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 import pathlib
+from havc.utils.version import get_version
 
 here = pathlib.Path(__file__).parent.resolve()
 long_description = (here / "README.md").read_text(encoding="utf-8")
 
+version = get_version()
+
 setup(
     name="havc",
-    version="1.0.0",
+    version=version,
     description="An automatic video converter using HandBrake CLI.",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -24,7 +27,7 @@ setup(
     python_requires=">=3.10.6",
     entry_points={
         "console_scripts": [
-            "havc=havc:main",
+            "havc=havc:app.main",
         ],
     }
 )

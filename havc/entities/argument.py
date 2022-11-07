@@ -4,7 +4,7 @@ class Argument:
     """
     This class is responsible for creating a new object containing important information about an argument
     """
-    def __init__(self, name, abbreviation_name, full_name):
+    def __init__(self, name, abbreviation_name, full_name, help_message, metavar, default=None):
         """
         initialization of important information about an argument
         :param name: the basic name of the argument
@@ -15,6 +15,9 @@ class Argument:
         self.abbreviation_name = abbreviation_name
         self.full_name = full_name
         self.value = None
+        self.help_message = help_message
+        self.metavar = metavar
+        self.default = default
 
     def set_argument_value(self, value):
         """

@@ -1,6 +1,6 @@
 import subprocess
 
-from utils.split_string import split_string
+from .utils.split_string import split_string
 
 
 class Command:

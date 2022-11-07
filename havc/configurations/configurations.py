@@ -1,14 +1,16 @@
-from src.entities.command_arguments import CommandArguments
+import os
+
+from havc.entities.command_arguments import CommandArguments
 from .configuration_line import ConfigurationLine, MultipleConfigurationLine, InitialDotLine
-from src.services.directory import Directory
-from src.services.file import File
+from havc.services.directory import Directory
+from havc.services.file import File
 
 
 class Configurations:
     original_arguments = None
     arguments = CommandArguments()
     current_configurations = []
-    path = 'config.txt'
+    path = os.path.dirname(os.path.realpath(__file__)) + '\\config.txt'
     file = File(path)
 
     def set_original_arguments(self, original_arguments):
@@ -37,7 +39,7 @@ class Configurations:
             try:
                 self.file.set_lines()
             except FileNotFoundError:
-                pass
+                return ""
 
             try:
                 configuration.set_configuration(self.__get_current_configuration(self.file.get_lines()[configuration.index]).strip('\n'))
@@ -81,14 +83,17 @@ class Configurations:
 
     def __get_configurations(self):
         """
-        gets all argument values saved in the configuration file and returns them for easy access by the src program
+        gets all argument values saved in the configuration file and returns them for easy access by the havc program
         :return: all argument values either from the configuration file or the command line
         """
         arguments = self.arguments.to_list()
         index = 0
         for configuration in arguments:
-            configuration.set_argument_value(self.current_configurations[index].configuration)
-            index += 1
+            try:
+                configuration.set_argument_value(self.current_configurations[index].configuration)
+                index += 1
+            except IndexError:
+                continue
 
         self.arguments.from_list(arguments)
 

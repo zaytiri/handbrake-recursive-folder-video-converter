@@ -151,5 +151,5 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 command.txt
-src/configurations/config.txt
+havc/configurations/config.txt
 .idea/sonarlint

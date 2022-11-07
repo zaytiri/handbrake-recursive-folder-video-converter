@@ -1,6 +1,6 @@
 from entities.video_file import VideoFile
 from output import Output
-from src.services.directory import Directory
+from services.directory import Directory
 from command import Command
 
 

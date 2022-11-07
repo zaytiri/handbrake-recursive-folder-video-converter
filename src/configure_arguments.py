@@ -2,7 +2,7 @@ import sys
 
 from services.arguments_service import ArgumentsService
 from entities.command_arguments import CommandArguments
-from src.configurations.configurations import Configurations
+from configurations.configurations import Configurations
 
 
 class ConfigureArguments:

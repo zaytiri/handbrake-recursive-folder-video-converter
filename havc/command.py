@@ -1,6 +1,6 @@
 import subprocess
 
-from .utils.split_string import split_string
+from utils.split_string import split_string
 
 
 class Command:
@@ -29,7 +29,16 @@ class Command:
         return result
 
     def __run_static_command(self, file_info):
-        return self.__run(self.__basic_command(file_info))
+        basic_command = [
+            self.handbrake_executable,
+            '--preset', 'Very Fast 1080p30',
+            '-i',
+            file_info.absolute_path + file_info.extension,
+            '-o',
+            file_info.absolute_path + file_info.target_extension
+        ]
+
+        return self.__run(basic_command)
 
     def __run_custom_command(self, file_info):
         list_of_args = split_string(self.custom_command, ' ', '\'')
@@ -40,18 +49,6 @@ class Command:
         list_of_args.insert(0, self.handbrake_executable)
 
         return self.__run(list_of_args)
-
-    def __basic_command(self, file_info):
-        basic_command = [
-            self.handbrake_executable,
-            '--preset', 'Very Fast 1080p30',
-            '-i',
-            file_info.absolute_path + file_info.extension,
-            '-o',
-            file_info.absolute_path + file_info.target_extension
-        ]
-
-        return basic_command
 
     @staticmethod
     def __run(args):

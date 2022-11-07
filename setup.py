@@ -6,7 +6,7 @@ long_description = (here / "README.md").read_text(encoding="utf-8")
 
 setup(
     name="havc",
-    version="1.0.2",
+    version="1.0.7",
     description="An automatic video converter using HandBrake CLI.",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -20,8 +20,7 @@ setup(
         "Programming Language :: Python :: 3",
     ],
     keywords="handbrake, cli, console, video, converter, encoder",
-    package_dir={"": "src"},
-    packages=find_packages(where="src"),
+    packages=["src", "src.configurations", "src.entities", "src.services", "src.utils"],
     python_requires=">=3.10.6",
     entry_points={
         "console_scripts": [

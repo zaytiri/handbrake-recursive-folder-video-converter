@@ -14,6 +14,10 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/zaytiri/handbrake-automatic-video-converter",
+    project_urls={
+        'GitHub': 'https://github.com/zaytiri/handbrake-automatic-video-converter',
+        'Changelog': 'https://github.com/zaytiri/handbrake-automatic-video-converter/blob/main/CHANGELOG.md',
+    },
     author="zaytiri",
     classifiers=[
         "Environment :: Console",

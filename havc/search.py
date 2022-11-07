@@ -1,7 +1,7 @@
-from .entities.video_file import VideoFile
-from .output import Output
-from .services.directory import Directory
-from .command import Command
+from entities.video_file import VideoFile
+from output import Output
+from services.directory import Directory
+from command import Command
 
 
 class Search:
@@ -21,14 +21,13 @@ class Search:
             if self.to_delete_folder_name in root:
                 continue
 
-            # todo: move this for loop outside of the current for somehow
             for video in files:
                 current_video_file = VideoFile(video, self.folder_path, self.original_file_extensions, self.target_file_extension)
 
                 if current_video_file.process():
                     handbrake = Command(self.root_path)
 
-                    if self.custom_command != '' and self.custom_command.upper() != 'off'.upper():
+                    if self.custom_command.upper() != 'off'.upper():
                         handbrake.set_custom_command(self.custom_command)
 
                     successful = handbrake.run_command(current_video_file)

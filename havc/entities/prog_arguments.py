@@ -3,7 +3,7 @@ import textwrap
 from .argument import Argument, Extensions
 
 
-class CommandArguments:
+class ProgArguments:
     """
     This class is responsible for creating an object containing all arguments used in the program
     """

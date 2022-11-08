@@ -1,12 +1,12 @@
 import sys
 
 from services.arguments_service import ArgumentsService
-from entities.command_arguments import CommandArguments
+from entities.prog_arguments import ProgArguments
 from configurations.configurations import Configurations
 from utils.progsettings import get_version
 
 
-class ConfigureArguments:
+class Arguments:
     """
     This class is responsible for configuring all arguments required for the program to work including saving all mandatory argument values in a
     configuration file for easy frequent use. This way the user only has to configure the first time it runs the program or if the configuration
@@ -16,10 +16,10 @@ class ConfigureArguments:
     def __init__(self):
         self.args = None
         self.original_arguments = None
-        self.arguments = CommandArguments()
+        self.prog_arguments = ProgArguments()
         self.are_configs_saved = False
 
-    def configure_arguments(self):
+    def configure(self):
         """
         create and configure arguments to save in a configuration file
         :return: returns all arguments either from the command line or saved configuration file
@@ -52,44 +52,44 @@ class ConfigureArguments:
         """
         self.args.parser.add_argument('--version', action='version', version='%(prog)s ' + get_version())
 
-        self.args.add_arguments([self.arguments.root.abbreviation_name, self.arguments.root.full_name],
+        self.args.add_arguments([self.prog_arguments.root.abbreviation_name, self.prog_arguments.root.full_name],
                                 str,
                                 required=not self.are_configs_saved,
-                                arg_help_message=self.arguments.root.help_message,
-                                metavar=self.arguments.root.metavar)
+                                arg_help_message=self.prog_arguments.root.help_message,
+                                metavar=self.prog_arguments.root.metavar)
 
-        self.args.add_arguments([self.arguments.folder_path_to_convert.abbreviation_name, self.arguments.folder_path_to_convert.full_name],
+        self.args.add_arguments([self.prog_arguments.folder_path_to_convert.abbreviation_name, self.prog_arguments.folder_path_to_convert.full_name],
                                 str,
                                 required=not self.are_configs_saved,
-                                arg_help_message=self.arguments.folder_path_to_convert.help_message,
-                                metavar=self.arguments.folder_path_to_convert.metavar)
+                                arg_help_message=self.prog_arguments.folder_path_to_convert.help_message,
+                                metavar=self.prog_arguments.folder_path_to_convert.metavar)
 
-        self.args.add_arguments([self.arguments.original_extensions.abbreviation_name, self.arguments.original_extensions.full_name],
+        self.args.add_arguments([self.prog_arguments.original_extensions.abbreviation_name, self.prog_arguments.original_extensions.full_name],
                                 str,
                                 action='extend', nargs='+',
                                 required=not self.are_configs_saved,
-                                arg_help_message=self.arguments.original_extensions.help_message,
-                                metavar=self.arguments.original_extensions.metavar)
+                                arg_help_message=self.prog_arguments.original_extensions.help_message,
+                                metavar=self.prog_arguments.original_extensions.metavar)
 
-        self.args.add_arguments([self.arguments.target_extension.abbreviation_name, self.arguments.target_extension.full_name],
+        self.args.add_arguments([self.prog_arguments.target_extension.abbreviation_name, self.prog_arguments.target_extension.full_name],
                                 str,
                                 required=not self.are_configs_saved,
-                                arg_help_message=self.arguments.target_extension.help_message,
-                                metavar=self.arguments.target_extension.metavar)
+                                arg_help_message=self.prog_arguments.target_extension.help_message,
+                                metavar=self.prog_arguments.target_extension.metavar)
 
-        self.args.add_arguments([self.arguments.deleted_folder.abbreviation_name, self.arguments.deleted_folder.full_name],
+        self.args.add_arguments([self.prog_arguments.deleted_folder.abbreviation_name, self.prog_arguments.deleted_folder.full_name],
                                 str,
                                 required=False,
-                                arg_help_message=self.arguments.deleted_folder.help_message,
-                                default=self.arguments.deleted_folder.default,
-                                metavar=self.arguments.deleted_folder.metavar)
+                                arg_help_message=self.prog_arguments.deleted_folder.help_message,
+                                default=self.prog_arguments.deleted_folder.default,
+                                metavar=self.prog_arguments.deleted_folder.metavar)
 
-        self.args.add_arguments([self.arguments.custom_command.abbreviation_name, self.arguments.custom_command.full_name],
+        self.args.add_arguments([self.prog_arguments.custom_command.abbreviation_name, self.prog_arguments.custom_command.full_name],
                                 str,
                                 required=False,
-                                arg_help_message=self.arguments.custom_command.help_message,
-                                default=self.arguments.custom_command.default,
-                                metavar=self.arguments.custom_command.metavar)
+                                arg_help_message=self.prog_arguments.custom_command.help_message,
+                                default=self.prog_arguments.custom_command.default,
+                                metavar=self.prog_arguments.custom_command.metavar)
 
     def __target_and_original_extensions_are_the_same(self):
         try:

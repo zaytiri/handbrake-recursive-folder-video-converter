@@ -2,14 +2,14 @@ import os
 
 import yaml
 
-from havc.entities.command_arguments import CommandArguments
+from havc.entities.prog_arguments import ProgArguments
 from havc.services.directory import Directory
 from havc.services.file import File
 
 
 class Configurations:
     original_arguments = None
-    arguments = CommandArguments()
+    arguments = ProgArguments()
     settings = {}
     path = os.path.dirname(os.path.realpath(__file__)) + '\\userconfigs.yaml'
     file = File(path)

@@ -1,11 +1,11 @@
 import sys
 
-from configure_arguments import ConfigureArguments
+from arguments import Arguments
 from search import Search
 
 
 def main():
-    arguments = ConfigureArguments().configure_arguments()
+    arguments = Arguments().configure()
 
     response = input(
         '"' + arguments.folder_path_to_convert.value + '" is going to be modified permanently. Are you sure you want to continue? \n [Y/N]')

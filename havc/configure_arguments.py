@@ -3,7 +3,7 @@ import sys
 from services.arguments_service import ArgumentsService
 from entities.command_arguments import CommandArguments
 from configurations.configurations import Configurations
-from utils.version import get_version
+from utils.progsettings import get_version
 
 
 class ConfigureArguments:

@@ -7,6 +7,7 @@ class File:
 
     def open(self, mode):
         self.file_in_use = open(self.path, mode)
+        return self.file_in_use
 
     def close(self):
         self.file_in_use.close()
@@ -14,10 +15,9 @@ class File:
     def write(self, line):
         self.file_in_use.write(line)
 
-    def write_lines(self, lines, mode):
-        opened_file = open(self.path, mode)
-        opened_file.writelines(lines)
-        opened_file.close()
+    def write_lines(self, lines):
+        self.file_in_use.writelines(lines)
+        self.close()
 
     def set_lines(self):
         self.__lines = open(self.path).readlines()

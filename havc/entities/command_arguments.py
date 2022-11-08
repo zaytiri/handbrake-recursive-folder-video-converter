@@ -1,6 +1,6 @@
 import textwrap
 
-from .argument import Argument
+from .argument import Argument, Extensions
 
 
 class CommandArguments:
@@ -21,17 +21,17 @@ class CommandArguments:
                                                'absolute path to the folder with convertible videos. example: --convert \'C:\\path\\to\\folder\'',
                                                "")
 
-        self.original_extensions = Argument('extensions',
-                                            '-e',
-                                            '--extensions',
-                                            'list of video\'s extensions to find and convert (with or without \'.\'). example: --extensions .mp4 m4v',
-                                            "")
+        self.original_extensions = Extensions('extensions',
+                                              '-e',
+                                              '--extensions',
+                                              'list of video\'s extensions to find and convert (with or without \'.\'). example: --extensions .mp4 m4v',
+                                              "")
 
-        self.target_extension = Argument('target',
-                                         '-t',
-                                         '--target',
-                                         'a target video extension to apply when a video is converted',
-                                         "")
+        self.target_extension = Extensions('target',
+                                           '-t',
+                                           '--target',
+                                           'a target video extension to apply when a video is converted',
+                                           "")
 
         self.deleted_folder = Argument('delete_folder',
                                        '-d',

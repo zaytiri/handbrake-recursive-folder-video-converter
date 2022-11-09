@@ -93,11 +93,14 @@ class Arguments:
         if self.__target_and_original_extensions_are_the_same():
             throw('target extension cannot be the same as any of the original file extensions.')
 
-        if not self.__given_argument_path_exists(self.original_arguments.root[0]):
-            throw(self.original_arguments.root[0] + '\' path does not exist.')
+        try:
+            if not self.__given_argument_path_exists(self.original_arguments.root[0]):
+                throw(self.original_arguments.root[0] + '\' path does not exist.')
 
-        if not self.__given_argument_path_exists(self.original_arguments.convert[0]):
-            throw(self.original_arguments.convert[0] + '\' path does not exist.')
+            if not self.__given_argument_path_exists(self.original_arguments.convert[0]):
+                throw(self.original_arguments.convert[0] + '\' path does not exist.')
+        except AttributeError:
+            pass
 
     def __target_and_original_extensions_are_the_same(self):
         try:

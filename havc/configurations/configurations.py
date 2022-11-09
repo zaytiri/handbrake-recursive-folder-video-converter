@@ -59,8 +59,6 @@ class Configurations:
                 argument_value = self.settings[configuration.name]
         else:
             argument_value = getattr(self.original_arguments, configuration.name)
-            if len(argument_value) == 1:
-                argument_value = argument_value[0]
 
         configuration.set_argument_value(argument_value)
         return configuration.value

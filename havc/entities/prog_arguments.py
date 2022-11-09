@@ -24,7 +24,8 @@ class ProgArguments:
         self.original_extensions = Extensions('extensions',
                                               '-e',
                                               '--extensions',
-                                              'list of video\'s extensions to find and convert (with or without \'.\'). example: --extensions .mp4 m4v',
+                                              'list of video\'s extensions to find and convert (with or without \'.\'). example: --extensions .mp4 '
+                                              'm4v',
                                               "")
 
         self.target_extension = Extensions('target',
@@ -55,6 +56,15 @@ class ProgArguments:
                                        "",
                                        default='OFF')
 
+        self.safety_question = Argument('safety_question',
+                                        '',
+                                        '--safety-question',
+                                        '[WARNING: make sure the folder to convert path is the correct one] enable/disable safety question '
+                                        'regarding modifying files in path of folder to convert: '
+                                        'True: --safety-question | False: --no-safety-question',
+                                        "",
+                                        default=True)
+
     def to_list(self):
         arguments = [
             self.root,
@@ -62,7 +72,8 @@ class ProgArguments:
             self.original_extensions,
             self.target_extension,
             self.deleted_folder,
-            self.custom_command
+            self.custom_command,
+            self.safety_question
         ]
         return arguments
 
@@ -73,3 +84,4 @@ class ProgArguments:
         self.target_extension = arguments[3]
         self.deleted_folder = arguments[4]
         self.custom_command = arguments[5]
+        self.safety_question = arguments[6]

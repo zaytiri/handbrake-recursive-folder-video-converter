@@ -2,7 +2,7 @@ import subprocess
 
 from havc.services.directory import Directory
 from havc.utils.error import throw
-from .utils.split_string import split_string
+from utils.split_string import split_string
 
 
 class Command:

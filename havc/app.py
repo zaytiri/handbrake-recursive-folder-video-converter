@@ -1,7 +1,7 @@
 import sys
 
-from arguments import Arguments
-from search import Search
+from .arguments import Arguments
+from .search import Search
 
 
 def main():

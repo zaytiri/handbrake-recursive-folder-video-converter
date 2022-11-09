@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed
 - Removed
 
-## [1.0.0] - 2022-11-26
+## [1.0.0] - 2022-11-09
 
 ### Added
 - First release on PyPI

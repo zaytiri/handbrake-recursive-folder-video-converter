@@ -27,7 +27,7 @@ setup(
         "Programming Language :: Python :: 3",
     ],
     keywords="handbrake, cli, console, video, converter, encoder",
-    package_data={'havc': ['**/*.yaml']},
+    package_data={'havc': ['progsettings.yaml']},
     packages=["havc", "havc.configurations", "havc.entities", "havc.services", "havc.utils"],
     python_requires=">=3.10.6",
     install_requires=[

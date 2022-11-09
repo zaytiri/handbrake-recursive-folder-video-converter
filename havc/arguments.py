@@ -1,5 +1,5 @@
-import sys
-
+from havc.services.directory import Directory
+from havc.utils.error import throw
 from services.arguments_service import ArgumentsService
 from entities.prog_arguments import ProgArguments
 from configurations.configurations import Configurations
@@ -38,9 +38,7 @@ class Arguments:
 
         self.original_arguments = self.args.parse_arguments()
 
-        if self.__target_and_original_extensions_are_the_same():
-            print('ERROR: target extension cannot be the same as any of the original file extensions.')
-            sys.exit()
+        self.__check_any_errors()
 
         config_file.set_original_arguments(self.original_arguments)
 
@@ -91,6 +89,16 @@ class Arguments:
                                 default=self.prog_arguments.custom_command.default,
                                 metavar=self.prog_arguments.custom_command.metavar)
 
+    def __check_any_errors(self):
+        if self.__target_and_original_extensions_are_the_same():
+            throw('target extension cannot be the same as any of the original file extensions.')
+
+        if not self.__given_argument_path_exists(self.original_arguments.root[0]):
+            throw(self.original_arguments.root[0] + '\' path does not exist.')
+
+        if not self.__given_argument_path_exists(self.original_arguments.convert[0]):
+            throw(self.original_arguments.convert[0] + '\' path does not exist.')
+
     def __target_and_original_extensions_are_the_same(self):
         try:
             for ext in self.original_arguments.extensions:
@@ -99,3 +107,8 @@ class Arguments:
             return False
         except AttributeError:
             return False
+
+    @staticmethod
+    def __given_argument_path_exists(path):
+        argument_path = Directory(path)
+        return argument_path.exists()

@@ -1,5 +1,7 @@
 import subprocess
 
+from havc.services.directory import Directory
+from havc.utils.error import throw
 from utils.split_string import split_string
 
 
@@ -20,13 +22,16 @@ class Command:
         self.custom_command = custom_command
 
     def run_command(self, file_info):
+        executable_path = Directory(self.handbrake_executable)
+        if not executable_path.exists():
+            throw(executable_path.root + ' path is not valid. either the path is incorrect or HandBrakeCLI.exe file does not exist in this path.')
+
         if self.custom_command is None:
             process = self.__run_static_command(file_info)
         else:
             process = self.__run_custom_command(file_info)
 
-        result = "Encode done!" in str(process)
-        return result
+        return self.__success_of(process)
 
     def __run_static_command(self, file_info):
         basic_command = [
@@ -49,6 +54,11 @@ class Command:
         list_of_args.insert(0, self.handbrake_executable)
 
         return self.__run(list_of_args)
+
+    @staticmethod
+    def __success_of(process):
+        result = 'Encode done!' in str(process)
+        return result
 
     @staticmethod
     def __run(args):

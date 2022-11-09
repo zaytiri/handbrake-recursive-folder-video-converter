@@ -32,11 +32,10 @@ class Extensions(Argument):
     def set_argument_value(self, value):
         if not isinstance(value, list):
             if not value.startswith('.'):
-                self.value = '.' + value
-            return
-
-        for ext in value:
-            if not ext.startswith('.'):
-                value[value.index(ext)] = '.' + ext
+                value = '.' + value
+        else:
+            for ext in value:
+                if not ext.startswith('.'):
+                    value[value.index(ext)] = '.' + ext
 
         self.value = value

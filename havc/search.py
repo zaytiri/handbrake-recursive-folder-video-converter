@@ -23,12 +23,12 @@ class Search:
                 continue
 
             for video in files:
-                found_files = True
                 current_video_file = VideoFile(video, self.folder_path, self.original_file_extensions, self.target_file_extension)
 
                 if not current_video_file.process():
                     continue
 
+                found_files = True
                 handbrake = Command(self.root_path)
 
                 if self.custom_command.upper() != 'off'.upper():

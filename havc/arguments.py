@@ -1,9 +1,9 @@
 from havc.services.directory import Directory
 from havc.utils.error import throw
-from services.arguments_service import ArgumentsService
-from entities.prog_arguments import ProgArguments
-from configurations.configurations import Configurations
-from utils.progsettings import get_version
+from .services.arguments_service import ArgumentsService
+from .entities.prog_arguments import ProgArguments
+from .configurations.configurations import Configurations
+from .utils.progsettings import get_version
 
 
 class Arguments:

@@ -1,7 +1,7 @@
-from entities.video_file import VideoFile
-from output import Output
-from services.directory import Directory
-from command import Command
+from .entities.video_file import VideoFile
+from .output import Output
+from .services.directory import Directory
+from .command import Command
 
 
 class Search:

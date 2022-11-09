@@ -1,12 +1,10 @@
 # Handbrake Automatic Video Converter
 
-An automatic video converter using HandBrake CLI. All videos found on a given folder, and subsequent folders, will be
-converted on original location while original file will be transferred to another folder for easy removal.
+An automatic video converter using HandBrake CLI. All videos found on a given folder, and subsequent folders, will be converted on original location while original file will be transferred to another folder for easy removal.
 
 ### HandBrake
 
-This is a video converter and the HandBrake GUI can be found [here](https://handbrake.fr), which also has a HandBrake
-CLI.
+This is a video converter and the HandBrake GUI can be found [here](https://handbrake.fr), which also has a HandBrake CLI.
 
 For more information, follow [this](https://handbrake.fr/docs/en/latest/table-of-contents.html) link.
 
@@ -25,18 +23,13 @@ For more information, follow [this](https://handbrake.fr/docs/en/latest/table-of
 
 ## Description
 
-Given a specific folder, all video files found with user-given extensions will be converted to a target extension also
-provided by the user.
+Given a specific folder, all video files found with user-given extensions will be converted to a target extension also provided by the user.
 
-The converted video file will stay in the original folder while the original file will be transferred to another folder.
-This has the benefit of easy removal of the original files, as well as if a file does not encode successfully the
-original file still exists and can be converted again.
+The converted video file will stay in the original folder while the original file will be transferred to another folder. This has the benefit of easy removal of the original files, as well as if a file does not encode successfully the original file still exists and can be converted again.
 
-The program also accepts a user custom command which must have placeholders to be replaced by the original file path and
-converted file path.
+The program also accepts a user custom command which must have placeholders to be replaced by the original file path and converted file path.
 
-In a first use of the program, all given arguments will be saved in a storage file so the user does not have to always
-write the same repeated command.
+In a first use of the program, all given arguments will be saved in a external file so the user does not have to always write the same repeated command.
 
 In the end, an output file will be created containing:
 
@@ -44,9 +37,7 @@ In the end, an output file will be created containing:
 - if the file was successfully encoded;
 - the size difference between all files.
 
-Initially, this project has the aim of reducing files size to ocupy the least amount of space in the disk and comparing
-between original size and converted size, but since a user can input a custom command, this can also be used just to
-convert a lot of files in a folder for other purposes.
+Initially, this project has the aim of reducing files size to ocupy the least amount of space in the disk and comparing between original size and converted size, but since a user can input a custom command, this can also be used just to convert a lot of files in a folder for other purposes.
 
 <a name="features"></a>
 
@@ -92,21 +83,23 @@ pip3 --no-cache-dir install havc
 ## Usage
 
 | Command | Required | Description                                                      |
-|:--------|:---------|:-----------------------------------------------------------------|
-| -r      | ✅        | absolute path folder to the HandBrake.exe (command line version) |
-| -c      | ✅        | absolute path folder containing the files to convert             |
-| -e      | ✅        | multiple file extensions to find and convert                     |
-| -t      | ✅        | file extension the converted file will have                      |
-| -d      | ❌        | folder's name containing original files                          |
-| -cc     | ❌        | custom handbrake command with placeholders                       |
+|:-------|:---------|:-----------------------------------------------------------------|
+| -r     | ✅        | absolute path folder to the HandBrake.exe (command line version) |
+| -c     | ✅        | absolute path folder containing the files to convert             |
+| -e     | ✅        | multiple file extensions to find and convert                     |
+| -t     | ✅        | file extension the converted file will have                      |
+| -d     | ❌        | folder's name containing original files                          |
+| -cc    | ❌        | custom handbrake command with placeholders                       |
+|--safety-question <br/>/<br/> --no-safety-question|     ❌     | enable or disable the safety question                            |
 
 #### Notes
 
-- Initial command must have all required arguments except if these arguments already are configured in the config.txt
+- Initial command must have all required arguments except if these arguments already are configured in external file.
   file.
-- Non-required arguments will also be saved in the config.txt file if specified.
+- Non-required arguments will also be saved in the external file if specified.
 - The folder containing original filed has the default name of 'TO-DELETE'.
 - The dot '.' before each extension is completely optional.
+- Because the program modifies the original files by moving them to another folder, one must be certain the correct folder is being modified so there is a question to make sure the user wants to continue. However, this feature can be disabled to let the program run freely, **_but be warned_**. The default of this value is 'true'.
 
 ---
 
@@ -115,6 +108,10 @@ Any additional help can be provided if the following command is run:
 ```
 havc --help
 ```
+or,
+```
+havc -h
+```
 
 Example of the initial command:
 
@@ -122,14 +119,13 @@ Example of the initial command:
 havc -r "C:\path\to\Desktop" -c "C:\path\to\Desktop\folder to convert" -e mp4 mkv -t m4v
 ```
 
-After this, the config.txt file will be configured and then the following command becomes valid (always using the previous configurations):
+After this, the external file will be configured and then the following command becomes valid (always using the previous configurations):
 
 ```
 havc
 ```
 
-If any argument have to be modified just run the command with the necessary argument, for instance, if the extensions
-have to be modified, we simply run:
+If any argument has to be modified just run the command with the necessary argument, for instance, if the extensions have to be modified, we simply run:
 
 ```
 havc -e mov .avi mp4

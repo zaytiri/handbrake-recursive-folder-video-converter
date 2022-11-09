@@ -54,13 +54,13 @@ class Configurations:
     def __process_configuration(self, configuration):
         if configuration.name not in self.original_arguments:
             if not self.is_configured():
-                return configuration.default
-            return self.settings[configuration.name]
+                argument_value = configuration.default
+            else:
+                argument_value = self.settings[configuration.name]
+        else:
+            argument_value = getattr(self.original_arguments, configuration.name)
+            if len(argument_value) == 1:
+                argument_value = argument_value[0]
 
-        new_argument_value = getattr(self.original_arguments, configuration.name)
-        if len(new_argument_value) == 1:
-            new_argument_value = new_argument_value[0]
-
-        configuration.set_argument_value(new_argument_value)
-
+        configuration.set_argument_value(argument_value)
         return configuration.value

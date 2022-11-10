@@ -49,7 +49,10 @@ class Search:
 
                 output_file.add_file_information(current_video_file, successful)
 
-        if not found_files:
-            print('No files were found with current extensions.')
-
         output_file.add_final_output()
+
+        if not found_files:
+            print('\nNo files were found with current extensions.')
+            output_file_to_delete = Directory(output_file.file.path)
+            output_file_to_delete.remove()
+

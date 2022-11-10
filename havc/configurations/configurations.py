@@ -56,7 +56,10 @@ class Configurations:
             if not self.is_configured():
                 argument_value = configuration.default
             else:
-                argument_value = self.settings[configuration.name]
+                try:
+                    argument_value = self.settings[configuration.name]
+                except KeyError:
+                    argument_value = configuration.default
         else:
             argument_value = getattr(self.original_arguments, configuration.name)
 

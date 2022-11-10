@@ -19,6 +19,9 @@ def main():
         ' extension are going to be converted to ' + arguments.target_extension.value + ' extension and be kept in the "' + arguments.deleted_folder.value + '" folder.')
     print('"' + arguments.folder_path_to_convert.value + '" is going to be modified permanently.\n')
 
+    if arguments.shutdown_when_done.value:
+        print('The computer will be shutdown when this program is done.\n')
+
     videos = Search(arguments)
 
     if arguments.safety_question.value:

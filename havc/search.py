@@ -1,3 +1,5 @@
+import subprocess
+
 from entities.video_file import VideoFile
 from output import Output
 from services.directory import Directory
@@ -12,6 +14,7 @@ class Search:
         self.target_file_extension = arguments.target_extension.value
         self.to_delete_folder_name = arguments.deleted_folder.value
         self.custom_command = arguments.custom_command.value
+        self.shutdown_when_done = arguments.shutdown_when_done.value
 
     def search(self):
         main_directory = Directory(self.folder_path)
@@ -56,3 +59,5 @@ class Search:
             output_file_to_delete = Directory(output_file.file.path)
             output_file_to_delete.remove()
 
+        if self.shutdown_when_done:
+            subprocess.run(["shutdown", "-s"])

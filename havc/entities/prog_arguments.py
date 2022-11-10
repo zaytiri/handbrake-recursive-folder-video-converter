@@ -60,10 +60,18 @@ class ProgArguments:
                                         '',
                                         '--safety-question',
                                         '[WARNING: make sure the folder to convert path is the correct one] enable/disable safety question '
-                                        'regarding modifying files in path of folder to convert: '
+                                        'regarding modifying files in path of folder to convert: (default is enabled)'
                                         'True: --safety-question | False: --no-safety-question',
                                         "",
                                         default=True)
+
+        self.shutdown_when_done = Argument('shutdown',
+                                           '',
+                                           '--shutdown',
+                                           'enable/disable if computer will be shutdown when the program is done: (default is disabled)'
+                                           'True: --shutdown | False: --no-shutdown',
+                                           "",
+                                           default=False)
 
     def to_list(self):
         arguments = [
@@ -73,7 +81,8 @@ class ProgArguments:
             self.target_extension,
             self.deleted_folder,
             self.custom_command,
-            self.safety_question
+            self.safety_question,
+            self.shutdown_when_done
         ]
         return arguments
 
@@ -85,3 +94,4 @@ class ProgArguments:
         self.deleted_folder = arguments[4]
         self.custom_command = arguments[5]
         self.safety_question = arguments[6]
+        self.shutdown_when_done = arguments[7]

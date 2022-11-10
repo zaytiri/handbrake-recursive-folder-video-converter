@@ -1,4 +1,4 @@
-# Handbrake Automatic Video Converter
+# Handbrake Automatic Video Converter for recursive folders
 
 An automatic video converter using HandBrake CLI. All videos found on a given folder, and subsequent folders, will be converted on original location while original file will be transferred to another folder for easy removal.
 

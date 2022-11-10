@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed
 - Removed
 
+## [1.1.0] - 2022-11-10
+
+### Added
+- new argument regarding shutting down the computer when the program is done
+- removal of output file, if no files were found during searching
+
+### Fixed
+- fixed bug where video searching was being done two times in a row
+
 ## [1.0.0] - 2022-11-09
 
 ### Added

@@ -28,6 +28,7 @@ def main():
             sys.exit()
         elif response == 'Y':
             videos.search()
+            return
 
     videos.search()
 

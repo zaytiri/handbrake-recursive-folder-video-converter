@@ -52,6 +52,7 @@ Initially, this project has the aim of reducing files size to ocupy the least am
 | ✅      | use of an automatic basic command aimed to reduce file size          |
 | ✅      | a custom HandBrake command with placeholders can also be inserted    |
 | ✅      | output file containing converted files information and their success |
+| ✅      | option to shutdown computer when program is done                     |
 
 Any new features are **very** welcome!
 
@@ -82,15 +83,16 @@ pip3 --no-cache-dir install havc
 
 ## Usage
 
-| Command | Required | Description                                                      |
-|:-------|:---------|:-----------------------------------------------------------------|
-| -r     | ✅        | absolute path folder to the HandBrake.exe (command line version) |
-| -c     | ✅        | absolute path folder containing the files to convert             |
-| -e     | ✅        | multiple file extensions to find and convert                     |
-| -t     | ✅        | file extension the converted file will have                      |
-| -d     | ❌        | folder's name containing original files                          |
-| -cc    | ❌        | custom handbrake command with placeholders                       |
-|--safety-question <br/>/<br/> --no-safety-question|     ❌     | enable or disable the safety question                            |
+| Command                                            | Required | Description                                                      |
+|:---------------------------------------------------|:---------|:-----------------------------------------------------------------|
+| -r                                                 | ✅        | absolute path folder to the HandBrake.exe (command line version) |
+| -c                                                 | ✅        | absolute path folder containing the files to convert             |
+| -e                                                 | ✅        | multiple file extensions to find and convert                     |
+| -t                                                 | ✅        | file extension the converted file will have                      |
+| -d                                                 | ❌        | folder's name containing original files                          |
+| -cc                                                | ❌        | custom handbrake command with placeholders                       |
+| --safety-question <br/>/<br/> --no-safety-question | ❌        | enable or disable the safety question                            |
+| --shutdown <br/>/<br/> --no-shutdown               | ❌        | enable or disable shutting down computer when program is done    |
 
 #### Notes
 
@@ -100,6 +102,7 @@ pip3 --no-cache-dir install havc
 - The folder containing original filed has the default name of 'TO-DELETE'.
 - The dot '.' before each extension is completely optional.
 - Because the program modifies the original files by moving them to another folder, one must be certain the correct folder is being modified so there is a question to make sure the user wants to continue. However, this feature can be disabled to let the program run freely, **_but be warned_**. The default of this value is 'true'.
+- Shutting down the computer is disabled, by default.
 
 ---
 

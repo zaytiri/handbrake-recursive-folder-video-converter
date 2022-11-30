@@ -1,3 +1,5 @@
+[![Downloads](https://pepy.tech/badge/havc)](https://pepy.tech/project/havc)
+
 # Handbrake Automatic Video File Batch Converter
 
 An automatic video converter using HandBrake CLI to batch convert all files found in recursive mode. In other words, all videos found on a given folder, and subsequent folders, will be converted on original location while original file will be transferred to another folder for easy removal.

@@ -152,3 +152,4 @@ cython_debug/
 #.idea/
 havc/configurations/userconfigs.yaml
 .idea/sonarlint
+.idea/

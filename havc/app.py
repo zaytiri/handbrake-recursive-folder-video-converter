@@ -1,7 +1,7 @@
 import sys
 
-from arguments import Arguments
-from search import Search
+from havc.arguments import Arguments
+from havc.search import Search
 
 
 def main():
@@ -35,3 +35,6 @@ def main():
 
     videos.search()
 
+
+if __name__ == '__main__':
+    main()

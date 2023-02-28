@@ -1,9 +1,9 @@
 import subprocess
 
-from entities.video_file import VideoFile
-from output import Output
-from services.directory import Directory
-from command import Command
+from havc.entities.video_file import VideoFile
+from havc.output import Output
+from havc.services.directory import Directory
+from havc.command import Command
 
 
 class Search:

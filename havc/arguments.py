@@ -1,8 +1,8 @@
 from havc.services.directory import Directory
 from havc.utils.error import throw
-from entities.prog_arguments import ProgArguments
-from configurations.configurations import Configurations
-from utils.progsettings import get_version
+from havc.entities.prog_arguments import ProgArguments
+from havc.configurations.configurations import Configurations
+from havc.utils.progsettings import get_version
 import argparse
 
 

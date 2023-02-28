@@ -1,6 +1,6 @@
 import textwrap
 
-from .argument import Argument, Extensions
+from havc.entities.argument import Argument, Extensions
 
 
 class ProgArguments:

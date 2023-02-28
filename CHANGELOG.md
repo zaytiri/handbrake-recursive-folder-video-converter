@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed
 - Removed
 
+## [1.1.2] - 2023-02-28
+
+### Fixed
+- fixed issue where a video file did not have the correct path when inside sub folders.
+- fixed issue where 'to delete' directory was not creating the same structure as the original to convert folder.
+
 ## [1.1.1] - 2022-11-10
 
 ### Changed

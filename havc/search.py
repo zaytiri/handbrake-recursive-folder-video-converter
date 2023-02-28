@@ -44,7 +44,10 @@ class Search:
                 sub_delete_folder = self.create_delete_folder_structure(root, new_main_delete_folder)
 
                 if successful:
+                    print('\nEncoding successfully done!\n\n')
                     current_video_file.copy_to(sub_delete_folder)
+                else:
+                    print('\nEncoding unsuccessful.\n\n')
 
                 output_file.add_file_information(current_video_file, successful)
 

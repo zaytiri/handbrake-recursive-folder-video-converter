@@ -31,6 +31,5 @@ def split_string(string, separator, stop_character, include_separator=False):
         param += character
 
     list_of_params.append(param)
-    print(list_of_params)
 
     return list_of_params

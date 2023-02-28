@@ -26,7 +26,7 @@ class Search:
                 continue
 
             for video in files:
-                current_video_file = VideoFile(video, self.folder_path, self.original_file_extensions, self.target_file_extension)
+                current_video_file = VideoFile(video, root, self.original_file_extensions, self.target_file_extension)
 
                 if not current_video_file.process():
                     continue

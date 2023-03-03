@@ -15,7 +15,7 @@ class Search:
 
     def search(self):
         main_directory = Directory(self.folder_path)
-        output_file = Output(main_directory.root)
+        output_file = Output()
         found_files = False
 
         delete_folder = self.create_delete_folder()
@@ -50,14 +50,13 @@ class Search:
                 else:
                     print('\nEncoding unsuccessful.\n\n')
 
-                output_file.add_file_information(current_video_file, successful)
+                output_file.add_file(current_video_file, successful)
 
-        output_file.add_final_output()
-
-        if not found_files:
+        if found_files:
+            output_file.process(main_directory.root)
+            print('\nAn output file with a summary was created in the following directory: \n\t\t' + output_file.output_file.path + '')
+        else:
             print('\nNo files were found with current extensions.')
-            output_file_to_delete = Directory(output_file.file.path)
-            output_file_to_delete.remove()
 
     def create_delete_folder(self):
         root_directory = Directory(self.folder_path)

@@ -31,7 +31,7 @@ class Search:
                     continue
 
                 if current_video_file.already_exists():
-                    print('\n' + root + '\\' + video + '--> Skipped because file with same name already exists!\n\n')
+                    print(root + '\\' + video + ' was skipped because file with same name already exists!\n\n')
                     output_file.add_skipped_file(root + '\\' + video)
                     continue
 

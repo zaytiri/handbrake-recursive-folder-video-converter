@@ -59,8 +59,9 @@ class VideoFile:
         self.name_only = '.'.join(file_name)
 
     def __process_extension_file(self):
+        file_name_extension = '.' + self.__name.split('.')[len(self.__name.split('.')) - 1]
         for ext in self.__file_extensions_to_convert:
-            if ext in self.__name:
+            if ext == file_name_extension:
                 self.extension = ext
                 return True
         return False

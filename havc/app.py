@@ -1,3 +1,4 @@
+import subprocess
 import sys
 
 from havc.arguments import Arguments
@@ -34,6 +35,9 @@ def main():
             return
 
     videos.search()
+
+    if arguments.shutdown_when_done.value:
+        subprocess.run(["shutdown", "-s"])
 
 
 if __name__ == '__main__':

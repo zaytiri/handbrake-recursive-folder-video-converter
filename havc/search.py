@@ -1,5 +1,3 @@
-import subprocess
-
 from havc.entities.video_file import VideoFile
 from havc.output import Output
 from havc.services.directory import Directory
@@ -14,7 +12,6 @@ class Search:
         self.target_file_extension = arguments.target_extension.value
         self.delete_folder = arguments.deleted_folder.value
         self.custom_command = arguments.custom_command.value
-        self.shutdown_when_done = arguments.shutdown_when_done.value
 
     def search(self):
         main_directory = Directory(self.folder_path)
@@ -56,9 +53,6 @@ class Search:
             print('\nNo files were found with current extensions.')
             output_file_to_delete = Directory(output_file.file.path)
             output_file_to_delete.remove()
-
-        if self.shutdown_when_done:
-            subprocess.run(["shutdown", "-s"])
 
     def create_delete_folder(self):
         root_directory = Directory(self.folder_path)

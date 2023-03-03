@@ -12,7 +12,7 @@ class Search:
         self.root_path = arguments.root.value
         self.original_file_extensions = arguments.original_extensions.value
         self.target_file_extension = arguments.target_extension.value
-        self.to_delete_folder_name = arguments.deleted_folder.value
+        self.delete_folder = arguments.deleted_folder.value
         self.custom_command = arguments.custom_command.value
         self.shutdown_when_done = arguments.shutdown_when_done.value
 
@@ -21,10 +21,10 @@ class Search:
         output_file = Output(main_directory.root)
         found_files = False
 
-        new_main_delete_folder = self.create_main_delete_folder()
+        delete_folder = self.create_delete_folder()
 
         for root, dirs, files in main_directory.search_through():
-            if self.to_delete_folder_name in root:
+            if self.delete_folder in root:
                 continue
 
             for video in files:
@@ -41,10 +41,9 @@ class Search:
 
                 successful = handbrake.run_command(current_video_file)
 
-                sub_delete_folder = self.create_delete_folder_structure(root, new_main_delete_folder)
-
                 if successful:
                     print('\nEncoding successfully done!\n\n')
+                    sub_delete_folder = self.create_delete_sub_folder(root, delete_folder)
                     current_video_file.copy_to(sub_delete_folder)
                 else:
                     print('\nEncoding unsuccessful.\n\n')
@@ -61,21 +60,23 @@ class Search:
         if self.shutdown_when_done:
             subprocess.run(["shutdown", "-s"])
 
-    def create_main_delete_folder(self):
+    def create_delete_folder(self):
         root_directory = Directory(self.folder_path)
         new_delete_directory = Directory(root_directory.last_folder_path)
-        to_delete_folder_path = new_delete_directory.create_folder(self.to_delete_folder_name)
+        to_delete_folder_path = new_delete_directory.create_folder(self.delete_folder)
         return Directory(to_delete_folder_path)
 
-    def create_delete_folder_structure(self, root, new_deleted_folder_directory):
-        root_directory = Directory(self.folder_path)
-        last_directory = Directory(root_directory.last_folder_path)
-        to_delete_folder = last_directory.root
-        path_name_list = root.split('\\')
-        for folder in path_name_list:
-            if folder == last_directory.current_folder:
-                to_delete_folder = to_delete_folder + '\\' + new_deleted_folder_directory.current_folder
-            if folder not in to_delete_folder:
-                to_delete_folder = to_delete_folder + '\\' + folder
+    def create_delete_sub_folder(self, root, delete_folder):
+        delete_folder_path = delete_folder.root
+        main_directory = Directory(self.folder_path)
 
-        return new_deleted_folder_directory.create_folder(to_delete_folder)
+        path_name_list = root.split('\\')
+        pass_main_folder = False
+        for folder in path_name_list:
+            if folder == main_directory.current_folder:
+                pass_main_folder = True
+                
+            if pass_main_folder and folder not in delete_folder_path:
+                delete_folder_path = delete_folder_path + '\\' + folder
+
+        return delete_folder.create_folder(delete_folder_path)

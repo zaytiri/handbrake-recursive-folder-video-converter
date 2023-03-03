@@ -46,7 +46,7 @@ class Output:
     def process(self, absolute_path_parent):
         date_now = '[' + str(date.today().year) + '-' + str(date.today().month) + '-' + str(date.today().day) + ' ' + str(
             datetime.utcnow().hour) + '-' + str(
-            datetime.utcnow().minute) + ']'
+            datetime.utcnow().minute) + '-' + str(datetime.utcnow().second) + ']'
         self.output_file = File(absolute_path_parent + '\\output' + date_now + '.txt')
         self.output_file.open('a')
 

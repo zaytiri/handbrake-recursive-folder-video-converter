@@ -53,6 +53,9 @@ class VideoFile:
         directory = Directory(self.absolute_path + self.extension)
         directory.remove()
 
+    def already_exists(self):
+        return Directory(self.absolute_path + self.target_extension).exists()
+
     def __process_file_name(self):
         file_name = self.__name.split('.')
         file_name.pop()

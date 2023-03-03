@@ -12,6 +12,7 @@ class Output:
     reduced_files_size = 0.0
     files_not_encoded = []
     number_of_files_encoded = 0
+    skipped_files = []
 
     def __init__(self, absolute_path_parent):
         date_now = '['+str(date.today().year)+'-'+str(date.today().month)+'-'+str(date.today().day)+' '+str(datetime.utcnow().hour)+'-'+str(
@@ -36,6 +37,9 @@ class Output:
         self.original_files_size += video_file.original_size
         self.reduced_files_size += video_file.converted_size
 
+    def add_skipped_file(self, skipped_file_path):
+        self.skipped_files.append(skipped_file_path)
+
     def add_final_output(self):
         self.__add_line('[' + str(datetime.utcnow()) + ']\nFinal Statistics:')
         self.__set_message_with_size('\tOriginal size of all searched video files: ', self.original_files_size)
@@ -52,8 +56,13 @@ class Output:
 
         if number_of_files_not_encoded != 0:
             self.__add_line('\n\tThe following video files were not encoded successfully:')
-        for files in self.files_not_encoded:
-            self.__add_line('\t--> ' + files)
+            for file in self.files_not_encoded:
+                self.__add_line('\t--> ' + file)
+
+        if len(self.skipped_files) > 0:
+            self.__add_line('\n\tThe following video files were skipped:')
+            for file in self.skipped_files:
+                self.__add_line('\t--> ' + file)
 
         self.file.close()
 

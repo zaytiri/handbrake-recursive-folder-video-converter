@@ -30,6 +30,11 @@ class Search:
                 if not current_video_file.process():
                     continue
 
+                if current_video_file.already_exists():
+                    print('\n' + root + '\\' + video + '--> Skipped because file with same name already exists!\n\n')
+                    output_file.add_skipped_file(root + '\\' + video)
+                    continue
+
                 found_files = True
                 handbrake = Command(self.root_path)
 

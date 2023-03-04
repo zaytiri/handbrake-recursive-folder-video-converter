@@ -39,7 +39,9 @@ In the end, an output file will be created containing:
 
 - all the files' information, files' original size and converted size;
 - if the file was successfully encoded;
-- the size difference between all files.
+- the size difference between all files;
+- a list of files and their absolute paths which were not converted successfully;
+- a list of files and their absolute paths which were skipped during encoding.
 
 Initially, this project has the aim of reducing files size to ocupy the least amount of space in the disk and comparing between original size and converted size, but since a user can input a custom command, this can also be used just to convert a lot of files in a folder for other purposes.
 
@@ -57,6 +59,11 @@ Initially, this project has the aim of reducing files size to ocupy the least am
 | ✅      | a custom HandBrake command with placeholders can also be inserted    |
 | ✅      | output file containing converted files information and their success |
 | ✅      | option to shutdown computer when program is done                     |
+| ✅      | when duplicate files exists these are skipped.                       |
+
+
+### Skipped Files
+- Program will skip files if it encounters duplicate files (with the same name and target extension), not doing anything with them. This information will be added to the output file summary.
 
 Any new features are **very** welcome!
 
@@ -87,23 +94,22 @@ pip3 --no-cache-dir install havc
 
 ## Usage
 
-| Command                                            | Required | Description                                                      |
-|:---------------------------------------------------|:---------|:-----------------------------------------------------------------|
-| -r                                                 | ✅        | absolute path folder to the HandBrake.exe (command line version) |
-| -c                                                 | ✅        | absolute path folder containing the files to convert             |
-| -e                                                 | ✅        | multiple file extensions to find and convert                     |
-| -t                                                 | ✅        | file extension the converted file will have                      |
-| -d                                                 | ❌        | folder's name containing original files                          |
-| -cc                                                | ❌        | custom handbrake command with placeholders                       |
-| --safety-question <br/>/<br/> --no-safety-question | ❌        | enable or disable the safety question                            |
-| --shutdown <br/>/<br/> --no-shutdown               | ❌        | enable or disable shutting down computer when program is done    |
+| Command                                            | Required | Description                                                                       |
+|:---------------------------------------------------|:---------|:----------------------------------------------------------------------------------|
+| -r                                                 | ✅        | absolute path folder to the HandBrake.exe (command line version)                  |
+| -c                                                 | ✅        | absolute path folder containing the files to convert                              |
+| -e                                                 | ✅        | multiple file extensions to find and convert                                      |
+| -t                                                 | ✅        | file extension the converted file will have                                       |
+| -d                                                 | ❌        | folder's name or an absolute path to the folder which will contain original files |
+| -cc                                                | ❌        | custom handbrake command with placeholders                                        |
+| --safety-question <br/>/<br/> --no-safety-question | ❌        | enable or disable the safety question                                             |
+| --shutdown <br/>/<br/> --no-shutdown               | ❌        | enable or disable shutting down computer when program is done                     |
 
 #### Notes
 
-- Initial command must have all required arguments except if these arguments already are configured in external file.
-  file.
+- First command must have all required arguments except if these arguments already are configured in external file.
 - Non-required arguments will also be saved in the external file if specified.
-- The folder containing original filed has the default name of 'TO-DELETE'.
+- The folder containing original filed has the default name of 'TO-DELETE' and the default path, if none is given, is the same directory as the path folder containing the files to convert.
 - The dot '.' before each extension is completely optional.
 - Because the program modifies the original files by moving them to another folder, one must be certain the correct folder is being modified so there is a question to make sure the user wants to continue. However, this feature can be disabled to let the program run freely, **_but be warned_**. The default of this value is 'true'.
 - Shutting down the computer is disabled, by default.

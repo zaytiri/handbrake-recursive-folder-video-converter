@@ -10,7 +10,7 @@ name: Upload Python Package to TestPyPi
 
 on:
   push:
-    branches: [ main ]
+    branches: [ test ]
   
   workflow_dispatch:
 

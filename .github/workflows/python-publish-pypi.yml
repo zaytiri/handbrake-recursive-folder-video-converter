@@ -6,13 +6,11 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Upload Python Package to TestPyPi
+name: Upload Python Package to PyPi
 
 on:
-  push:
-    branches: [ test ]
-  
-  workflow_dispatch:
+  release:
+    types: [published]
 
 permissions:
   contents: read
@@ -24,7 +22,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-  
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
@@ -41,11 +38,10 @@ jobs:
         # Install the package from setup.py
         python3 setup.py install
         
-    - name: Build and Upload to TestPyPI
+    - name: Build and Upload to PyPI
       run: |
         python3 setup.py sdist bdist_wheel
-        python3 -m twine upload --repository testpypi dist/*
+        python3 -m twine upload dist/*
       env:
         TWINE_USERNAME: __token__
-        TWINE_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
-
+        TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}

@@ -40,7 +40,10 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         # Install the package from setup.py
         python3 setup.py install
-        
+    
+    - name: Upgrade program version
+      run: |
+        python -c 'import yaml;f=open("havc/progsettings.yml");y=yaml.safe_load(f);y["prog"]["version"] = y["prog"]["version"] + 1; print(yaml.dump(y, default_flow_style=False, sort_keys=False))'
     - name: Build and Upload to TestPyPI
       run: |
         rm -rf dist

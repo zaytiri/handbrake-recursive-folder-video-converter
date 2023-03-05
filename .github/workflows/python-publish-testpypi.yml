@@ -43,6 +43,7 @@ jobs:
         
     - name: Build and Upload to TestPyPI
       run: |
+        rm -rf testfolder dist
         python3 setup.py sdist bdist_wheel
         python3 -m twine upload --repository testpypi dist/*
       env:

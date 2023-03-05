@@ -21,12 +21,6 @@ class Search:
         delete_folder = self.create_delete_folder()
 
         for root, dirs, files in main_directory.search_through():
-            print(root)
-            print('----------')
-            print(dirs)
-            print('----------')
-            print(files)
-            print('----------')
             if self.delete_folder in root:
                 continue
 

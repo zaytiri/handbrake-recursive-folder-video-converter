@@ -49,7 +49,7 @@ class Arguments:
         """
         configures and adds the arguments required for the program
         """
-        self.args.add_argument('--version', action='version', version='%(prog)s ' + get_version())
+        self.args.add_argument('--version', action='version', version='%(prog)s ' + str(get_version()))
 
         self.args.add_argument(self.prog_arguments.root.abbreviation_name, self.prog_arguments.root.full_name,
                                required=not self.are_configs_saved,

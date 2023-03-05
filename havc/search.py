@@ -21,6 +21,12 @@ class Search:
         delete_folder = self.create_delete_folder()
 
         for root, dirs, files in main_directory.search_through():
+            print(root)
+            print('----------')
+            print(dirs)
+            print('----------')
+            print(files)
+            print('----------')
             if self.delete_folder in root:
                 continue
 
@@ -43,14 +49,15 @@ class Search:
 
                 successful = handbrake.run_command(current_video_file)
 
-                if successful:
-                    print('\nEncoding successfully done!\n\n')
-                    sub_delete_folder = self.create_delete_sub_folder(root, delete_folder)
-                    current_video_file.copy_to(sub_delete_folder)
-                else:
+                if not successful:
                     print('\nEncoding unsuccessful.\n\n')
+                    output_file.add_unsuccessful_file(root + '\\' + video)
+                    continue
 
-                output_file.add_file(current_video_file, successful)
+                print('\nEncoding successfully done!\n\n')
+                sub_delete_folder = self.create_delete_sub_folder(root, delete_folder)
+                current_video_file.copy_to(sub_delete_folder)
+                output_file.add_file(current_video_file)
 
         if found_files:
             output_file.process(main_directory.root)
@@ -74,7 +81,8 @@ class Search:
             if folder == main_directory.current_folder:
                 pass_main_folder = True
                 
-            if pass_main_folder and folder not in delete_folder_path:
+            if pass_main_folder:
                 delete_folder_path = delete_folder_path + '\\' + folder
+                delete_folder.create_folder(delete_folder_path)
 
-        return delete_folder.create_folder(delete_folder_path)
+        return delete_folder_path

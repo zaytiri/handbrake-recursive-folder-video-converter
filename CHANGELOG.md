@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed
 - Removed
 
+## [1.2.1] - 2023-03-06
+
+### Fixed
+- fixed issue where intermediate folders were not being created.
+- fixed issue where sub-folders with the same name as parent folders were not being created.
+
 ## [1.2.0] - 2023-03-04
 
 ### Fixed

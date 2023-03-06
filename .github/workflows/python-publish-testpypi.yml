@@ -29,11 +29,7 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: '3.x'
-    
-    - name: Upgrade program version
-      run: |
-        python -c 'import yaml;f=open("${{github.workspace}}/havc/progsettings.yaml");y=yaml.safe_load(f);y["PROG"]["VERSION"]=y["PROG"]["VERSION"]+1;yaml.dump(y)'
-    
+      
     - name: Install dependencies
       run: |
         # Upgrade pip

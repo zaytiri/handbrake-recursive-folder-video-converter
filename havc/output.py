@@ -16,13 +16,8 @@ class Output:
     video_files = []
     output_file = None
 
-    def __add_file_information(self, timestamp, video_file, successful):
-        self.__add_line('[' + str(timestamp) + ']\nThe following video file was converted: ' + video_file.name_only)
-
-        if not successful:
-            self.__add_line('\t*** This file was not encoded successfully! ***\n')
-            self.files_not_encoded.append(video_file.absolute_path + video_file.extension)
-            return
+    def __add_file_information(self, timestamp, video_file):
+        self.__add_line('[' + str(timestamp) + ']\nThe following video file was converted: ' + video_file.absolute_path)
 
         self.__add_line('\t-Converted from ' + video_file.extension + ' extension to ' + video_file.target_extension)
         self.__set_message_with_size('\t-The original file size was: ', video_file.original_size)
@@ -33,15 +28,17 @@ class Output:
         self.original_files_size += video_file.original_size
         self.reduced_files_size += video_file.converted_size
 
-    def add_file(self, video_file, successful):
+    def add_file(self, video_file):
         self.video_files.append({
             'timestamp': datetime.utcnow(),
-            'video_file': video_file,
-            'successful': successful
+            'video_file': video_file
         })
 
     def add_skipped_file(self, skipped_file_path):
         self.skipped_files.append(skipped_file_path)
+
+    def add_unsuccessful_file(self, unsuccessful_file_path):
+        self.files_not_encoded.append(unsuccessful_file_path)
 
     def process(self, absolute_path_parent):
         date_now = '[' + str(date.today().year) + '-' + str(date.today().month) + '-' + str(date.today().day) + ' ' + str(
@@ -51,7 +48,7 @@ class Output:
         self.output_file.open('a')
 
         for video_file in self.video_files:
-            self.__add_file_information(video_file['timestamp'], video_file['video_file'], video_file['successful'])
+            self.__add_file_information(video_file['timestamp'], video_file['video_file'])
 
         self.__add_line('[' + str(datetime.utcnow()) + ']\nFinal Statistics:')
         self.__set_message_with_size('\tSize of all original video files: ', self.original_files_size)
@@ -66,6 +63,7 @@ class Output:
         self.__add_line('\t- Total number of files unsuccessfully converted: ' + str(number_of_files_not_encoded))
         total = self.number_of_files_encoded + number_of_files_not_encoded
         self.__add_line('\t- Total number of files found: ' + str(total))
+        self.__add_line('\t- Total number of files skipped: ' + str(len(self.skipped_files)))
 
         if number_of_files_not_encoded != 0:
             self.__add_line('\n\tThe following video files were not encoded successfully:')

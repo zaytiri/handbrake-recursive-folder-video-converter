@@ -43,7 +43,7 @@ jobs:
     
     - name: Upgrade program version
       run: |
-        python -c 'import yaml;f=open( $(GITHUB_WORKSPACE)'havc\progsettings.yaml');y=yaml.safe_load(f);y["prog"]["version"] = y["prog"]["version"] + 1; print(yaml.dump(y, default_flow_style=False, sort_keys=False))'
+        python -c 'import yaml;f=open( $(GITHUB_WORKSPACE)'havc\progsettings.yaml');y=yaml.safe_load(f);y["prog"]["version"] = y["prog"]["version"] + 1; print(yaml.dump(y))'
     
     - name: Build and Upload to TestPyPI
       run: |

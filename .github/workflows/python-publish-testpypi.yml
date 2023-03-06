@@ -30,6 +30,10 @@ jobs:
       with:
         python-version: '3.x'
     
+    - name: Upgrade program version
+      run: |
+        python -c 'import yaml;f=open("${{github.workspace}}/havc/progsettings.yaml");y=yaml.safe_load(f);y["PROG"]["VERSION"]=y["PROG"]["VERSION"]+1;yaml.dump(y)'
+    
     - name: Install dependencies
       run: |
         # Upgrade pip
@@ -40,10 +44,6 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         # Install the package from setup.py
         python3 setup.py install
-    
-    - name: Upgrade program version
-      run: |
-        python -c 'import yaml;f=open( "${{ github.workspace }}/havc/progsettings.yaml");y=yaml.safe_load(f);print(y);y["PROG"]["VERSION"] = y["PROG"]["VERSION"] + 1; print(yaml.dump(y))'
     
     - name: Build and Upload to TestPyPI
       run: |

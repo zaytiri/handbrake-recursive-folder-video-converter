@@ -17,7 +17,7 @@ class Output:
     output_file = None
 
     def __add_file_information(self, timestamp, video_file):
-        self.__add_line('[' + str(timestamp) + ']\nThe following video file was converted: ' + video_file.name_only)
+        self.__add_line('[' + str(timestamp) + ']\nThe following video file was converted: ' + video_file.absolute_path)
 
         self.__add_line('\t-Converted from ' + video_file.extension + ' extension to ' + video_file.target_extension)
         self.__set_message_with_size('\t-The original file size was: ', video_file.original_size)

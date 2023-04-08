@@ -61,11 +61,16 @@ Initially, this project has the aim of reducing files size to ocupy the least am
 | ✅      | option to shutdown computer when program is done                     |
 | ✅      | when duplicate files exists these are skipped.                       |
 
+Any new features are **very** welcome! Please open an issue to make a request.
 
 ### Skipped Files
 - Program will skip files if it encounters duplicate files (with the same name and target extension), not doing anything with them. This information will be added to the output file summary.
 
-Any new features are **very** welcome!
+### Future features
+
+- Currently, this program only uses the Handbrake enconding tool. In the future, it will be implemented an option to also use the FFmpeg enconding tool. The user can then choose which one best suits him/her.
+
+<!--#### Done ✅-->
 
 <a name="prerequisites"></a>
 

@@ -68,7 +68,7 @@ Any new features are **very** welcome! Please open an issue to make a request.
 
 ### Future features
 
-- Currently, this program only uses the Handbrake enconding tool. In the future, it will be implemented an option to also use the FFmpeg enconding tool. The user can then choose which one best suits him/her.
+- Currently, this program only uses the Handbrake encoding tool. In the future, it will be implemented an option to also use the FFmpeg encoding tool. The user can then choose which one best suits him/her.
 
 <!--#### Done ✅-->
 

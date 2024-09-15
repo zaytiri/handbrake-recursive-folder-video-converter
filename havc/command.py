@@ -3,7 +3,7 @@ import subprocess
 from havc.services.directory import Directory
 from havc.utils.error import throw
 from havc.utils.split_string import split_string
-from havc.utils.operating_system import OperatingSystem
+from havc.utils.operating_system import OperatingSystem, OperatingSystemEnum
 
 
 class Command:
@@ -17,7 +17,13 @@ class Command:
 
     def __init__(self, root_path):
         self.root_path = root_path
-        self.handbrake_executable = self.root_path + OperatingSystem().get_correct_slash_symbol() + 'HandBrakeCLI.exe'
+
+        opsys = OperatingSystem()
+
+        self.handbrake_executable = self.root_path + opsys.get_correct_slash_symbol() + 'HandBrakeCLI'
+
+        if opsys.get_current() == OperatingSystemEnum.WINDOWS:
+            self.handbrake_executable += '.exe'
 
     def set_custom_command(self, custom_command):
         self.custom_command = custom_command
@@ -25,7 +31,7 @@ class Command:
     def run_command(self, file_info):
         executable_path = Directory(self.handbrake_executable)
         if not executable_path.exists():
-            throw(executable_path.root + ' path is not valid. either the path is incorrect or HandBrakeCLI.exe file does not exist in this path.')
+            throw(executable_path.root + ' path is not valid. either the path is incorrect or HandBrakeCLI file does not exist in this path.')
 
         if self.custom_command is None:
             process = self.__run_static_command(file_info)

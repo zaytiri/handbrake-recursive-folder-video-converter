@@ -5,13 +5,14 @@ import yaml
 from havc.entities.prog_arguments import ProgArguments
 from havc.services.directory import Directory
 from havc.services.file import File
+from havc.utils.operating_system import OperatingSystem
 
 
 class Configurations:
     original_arguments = None
     arguments = ProgArguments()
     settings = {}
-    path = os.path.dirname(os.path.realpath(__file__)) + '\\userconfigs.yaml'
+    path = os.path.dirname(os.path.realpath(__file__)) + OperatingSystem().get_correct_slash_symbol() + 'userconfigs.yaml'
     file = File(path)
 
     def set_original_arguments(self, original_arguments):

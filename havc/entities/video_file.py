@@ -1,5 +1,7 @@
+from datetime import datetime
 import os.path
 import shutil
+import subprocess
 from havc.services.directory import Directory
 
 
@@ -72,3 +74,25 @@ class VideoFile:
     def __process_absolute_path(self):
         directory = Directory(self.__root)
         self.absolute_path = directory.create(self.name_only)
+
+    def copy_metadata_to(self, converted_video_file_path):
+        if 'VID' not in self.name_only:
+            return
+        
+        photo_title_splitted = self.name_only.split('_')
+        year = photo_title_splitted[1][0:4]
+        month = photo_title_splitted[1][4:6]
+        day = photo_title_splitted[1][6:]
+        hour = photo_title_splitted[2][0:2]
+        minutes = photo_title_splitted[2][2:4]
+        seconds = photo_title_splitted[2][4:]
+
+        new_date_created = datetime(int(year), int(month), int(day), int(hour), int(minutes), int(seconds)).strftime("%Y-%m-%dT%H:%M:%S.00Z")
+
+        # cmd = [
+        # 'ffmpeg', '-i', converted_video_file_path, '-metadata', f'creation_time={new_date_created}', 
+        # '-codec', 'copy', self.absolute_path + '-temp' + self.target_extension
+        # ]
+        # subprocess.run(cmd, check=True)
+
+        # os.rename(self.absolute_path + '-temp' + self.target_extension, converted_video_file_path)

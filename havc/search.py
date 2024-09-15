@@ -7,9 +7,6 @@ from havc.utils.operating_system import OperatingSystem
 
 class Search:
     def __init__(self, arguments):
-        print(arguments.folder_path_to_convert.value)
-        print(arguments.root.value)
-
         self.folder_path = arguments.folder_path_to_convert.value
         self.root_path = arguments.root.value
         self.original_file_extensions = arguments.original_extensions.value
@@ -54,6 +51,10 @@ class Search:
 
                 print('\nEncoding successfully done!\n\n')
                 sub_delete_folder = self.create_delete_sub_folder(root, delete_folder)
+                
+                converted_video_file_path = current_video_file.absolute_path + self.target_file_extension
+                current_video_file.copy_metadata_to(converted_video_file_path)
+
                 current_video_file.copy_to(sub_delete_folder)
                 output_file.add_file(current_video_file)
 

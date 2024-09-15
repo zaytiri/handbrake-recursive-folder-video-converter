@@ -81,6 +81,7 @@ Any new features are **very** welcome! Please open an issue to make a request.
 To use this project, the HandBrake command line version must be installed. This installation can be found
 in [this link](https://handbrake.fr/downloads.php) under 'Downloads->Other->Command Line Version'
 
+You will also need the ffmpeg CLI. You can find the link here.
 
 ### For Linux Users (Debian/Ubuntu)
 The HandBrake CLI can be installed by following the next commands:
@@ -96,8 +97,17 @@ sudo apt install handbrake-cli
 which HandBrakeCLI
 ```
 
-The last command is useful for making sure the installation was successful.
+<!-- The last command is useful for making sure the installation was successful.
 Also it shows you where the executable is. You will need this path to input as the root path in this program's arguments (-r).
+
+The ffmpeg CLI can be installed by following the next commands:
+```
+sudo apt update
+```
+
+```
+sudo apt install ffmpeg
+``` -->
 
 <a name="installation"></a>
 

@@ -2,10 +2,14 @@ from havc.entities.video_file import VideoFile
 from havc.output import Output
 from havc.services.directory import Directory
 from havc.command import Command
+from havc.utils.operating_system import OperatingSystem
 
 
 class Search:
     def __init__(self, arguments):
+        print(arguments.folder_path_to_convert.value)
+        print(arguments.root.value)
+
         self.folder_path = arguments.folder_path_to_convert.value
         self.root_path = arguments.root.value
         self.original_file_extensions = arguments.original_extensions.value
@@ -31,8 +35,8 @@ class Search:
                     continue
 
                 if current_video_file.already_exists():
-                    print(root + '\\' + video + ' was skipped because file with same name already exists!\n\n')
-                    output_file.add_skipped_file(root + '\\' + video)
+                    print(root + OperatingSystem().get_correct_slash_symbol() + video + ' was skipped because file with same name already exists!\n\n')
+                    output_file.add_skipped_file(root + OperatingSystem().get_correct_slash_symbol() + video)
                     continue
 
                 found_files = True
@@ -45,7 +49,7 @@ class Search:
 
                 if not successful:
                     print('\nEncoding unsuccessful.\n\n')
-                    output_file.add_unsuccessful_file(root + '\\' + video)
+                    output_file.add_unsuccessful_file(root + OperatingSystem().get_correct_slash_symbol() + video)
                     continue
 
                 print('\nEncoding successfully done!\n\n')
@@ -69,14 +73,14 @@ class Search:
         delete_folder_path = delete_folder.root
         main_directory = Directory(self.folder_path)
 
-        path_name_list = root.split('\\')
+        path_name_list = root.split(OperatingSystem().get_correct_slash_symbol())
         pass_main_folder = False
         for folder in path_name_list:
             if folder == main_directory.current_folder:
                 pass_main_folder = True
                 
             if pass_main_folder:
-                delete_folder_path = delete_folder_path + '\\' + folder
+                delete_folder_path = delete_folder_path + OperatingSystem().get_correct_slash_symbol() + folder
                 delete_folder.create_folder(delete_folder_path)
 
         return delete_folder_path

@@ -2,6 +2,7 @@ from datetime import date, datetime
 
 from havc.services.file import File
 from havc.utils.bytes_conversion import set_converted_bytes_with_label
+from havc.utils.operating_system import OperatingSystem
 
 
 class Output:
@@ -44,7 +45,7 @@ class Output:
         date_now = '[' + str(date.today().year) + '-' + str(date.today().month) + '-' + str(date.today().day) + ' ' + str(
             datetime.utcnow().hour) + '-' + str(
             datetime.utcnow().minute) + '-' + str(datetime.utcnow().second) + ']'
-        self.output_file = File(absolute_path_parent + '\\output' + date_now + '.txt')
+        self.output_file = File(absolute_path_parent + OperatingSystem().get_correct_slash_symbol() + 'output' + date_now + '.txt')
         self.output_file.open('a')
 
         for video_file in self.video_files:

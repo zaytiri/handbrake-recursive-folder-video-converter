@@ -3,6 +3,7 @@ import subprocess
 from havc.services.directory import Directory
 from havc.utils.error import throw
 from havc.utils.split_string import split_string
+from havc.utils.operating_system import OperatingSystem
 
 
 class Command:
@@ -16,7 +17,7 @@ class Command:
 
     def __init__(self, root_path):
         self.root_path = root_path
-        self.handbrake_executable = self.root_path + '\\HandBrakeCLI.exe'
+        self.handbrake_executable = self.root_path + OperatingSystem().get_correct_slash_symbol() + 'HandBrakeCLI.exe'
 
     def set_custom_command(self, custom_command):
         self.custom_command = custom_command
@@ -64,3 +65,4 @@ class Command:
     def __run(args):
         print('Current Command: ' + ' '.join([str(elem) for elem in args]) + '\n')
         return subprocess.run(args, stderr=subprocess.PIPE)
+

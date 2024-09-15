@@ -1,15 +1,25 @@
+import os
+import sys
 from setuptools import setup
 import pathlib
-from havc.utils.progsettings import get_version
+import yaml
 
 here = pathlib.Path(__file__).parent.resolve()
 long_description = (here / "README.md").read_text(encoding="utf-8")
 
-version = get_version()
+def get_version():
+    if getattr(sys, 'frozen', False):
+        path = os.path.join(sys._MEIPASS, "files/progsettings.yaml")
+    else:
+        path = os.path.join(os.path.dirname(__file__), 'havc', 'progsettings.yaml')
 
+    with open(path, 'r') as settings_file:
+        settings = yaml.safe_load(settings_file)['prog'.upper()]
+        return settings['version'.upper()]
+    
 setup(
     name="havc",
-    version=version,
+    version=get_version(),
     description="An automatic video converter using HandBrake CLI.",
     long_description=long_description,
     long_description_content_type="text/markdown",

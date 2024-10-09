@@ -134,9 +134,10 @@ pip3 --no-cache-dir install havc
 | -e                                                 | ✅        | multiple file extensions to find and convert                                      |
 | -t                                                 | ✅        | file extension the converted file will have                                       |
 | -d                                                 | ❌        | folder's name or an absolute path to the folder which will contain original files |
-| -cc                                                | ❌        | custom handbrake command with placeholders                                        |
+| -cc                                                | ❌        | custom handbrake command with placeholders (now reusable)                                        |
 | --safety-question <br/>/<br/> --no-safety-question | ❌        | enable or disable the safety question                                             |
 | --shutdown <br/>/<br/> --no-shutdown               | ❌        | enable or disable shutting down computer when program is done                     |
+| --enable-delete <br/>/<br/> --no-enable-delete               | ❌        | if disabled, original files will not be moved to an external folder. they will stay in the same folder as the converted files                     |
 
 #### Notes
 
@@ -146,6 +147,8 @@ pip3 --no-cache-dir install havc
 - The dot '.' before each extension is completely optional.
 - Because the program modifies the original files by moving them to another folder, one must be certain the correct folder is being modified so there is a question to make sure the user wants to continue. However, this feature can be disabled to let the program run freely, **_but be warned_**. The default of this value is 'true'.
 - Shutting down the computer is disabled, by default.
+- Disabling deletion of files, means that original files will remain in the same folder as converted files. This is true by default. Option does not get persisted between runs.
+
 
 ---
 

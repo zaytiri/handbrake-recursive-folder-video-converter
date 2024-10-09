@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed
 - Removed
 
+## [1.4.0] - 2024-10-10
+
+### Added
+- way to reuse placeholders when using a custom command.
+- option to not move converted files to an external folder.
+
 ## [1.3.0] - 2024-09-15
 
 ### Added

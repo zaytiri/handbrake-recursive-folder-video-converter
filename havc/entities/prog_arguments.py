@@ -72,6 +72,14 @@ class ProgArguments:
                                            'True: --shutdown | False: --no-shutdown',
                                            "",
                                            default=False)
+        
+        self.is_deleted_enabled = Argument('enable_delete',
+                                           '',
+                                           '--enable-delete',
+                                           'enable/disable if files will be moved to a external folder: (default is enabled). if disabled the original files will remain in the same folder as the converted files.'
+                                           'True: --enable-delete | False: --no-enable-delete',
+                                           "",
+                                           default=True)
 
     def to_list(self):
         arguments = [
@@ -82,7 +90,8 @@ class ProgArguments:
             self.deleted_folder,
             self.custom_command,
             self.safety_question,
-            self.shutdown_when_done
+            self.shutdown_when_done,
+            self.is_deleted_enabled
         ]
         return arguments
 
@@ -95,3 +104,4 @@ class ProgArguments:
         self.custom_command = arguments[5]
         self.safety_question = arguments[6]
         self.shutdown_when_done = arguments[7]
+        self.is_deleted_enabled = arguments[8]

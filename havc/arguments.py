@@ -102,6 +102,14 @@ class Arguments:
                                help=self.prog_arguments.shutdown_when_done.help_message,
                                default=self.prog_arguments.shutdown_when_done.default,
                                metavar=self.prog_arguments.shutdown_when_done.metavar)
+        
+        self.args.add_argument(self.prog_arguments.is_deleted_enabled.full_name,
+                               action=argparse.BooleanOptionalAction,
+                               required=False,
+                               help=self.prog_arguments.is_deleted_enabled.help_message,
+                               default=self.prog_arguments.is_deleted_enabled.default,
+                               metavar=self.prog_arguments.is_deleted_enabled.metavar)
+        
 
     def __check_any_errors(self):
         if self.__target_and_original_extensions_are_the_same():

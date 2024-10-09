@@ -12,6 +12,7 @@ class Search:
         self.original_file_extensions = arguments.original_extensions.value
         self.target_file_extension = arguments.target_extension.value
         self.delete_folder = arguments.deleted_folder.value
+        self.is_deleted_enabled = arguments.is_deleted_enabled.value
         self.custom_command = arguments.custom_command.value
 
     def search(self):
@@ -19,7 +20,8 @@ class Search:
         output_file = Output()
         found_files = False
 
-        delete_folder = self.create_delete_folder()
+        if self.is_deleted_enabled:
+            delete_folder = self.create_delete_folder()
 
         for root, dirs, files in main_directory.search_through():
             if self.delete_folder in root:
@@ -50,12 +52,14 @@ class Search:
                     continue
 
                 print('\nEncoding successfully done!\n\n')
-                sub_delete_folder = self.create_delete_sub_folder(root, delete_folder)
-                
+                    
                 converted_video_file_path = current_video_file.absolute_path + self.target_file_extension
                 current_video_file.copy_metadata_to(converted_video_file_path)
-
-                current_video_file.copy_to(sub_delete_folder)
+                
+                if self.is_deleted_enabled:
+                    sub_delete_folder = self.create_delete_sub_folder(root, delete_folder)
+                    current_video_file.copy_to(sub_delete_folder)
+                
                 output_file.add_file(current_video_file)
 
         if found_files:

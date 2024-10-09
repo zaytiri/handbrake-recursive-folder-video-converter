@@ -55,12 +55,14 @@ class Command:
     def __run_custom_command(self, file_info):
         list_of_args = split_string(self.custom_command, ' ', '\'')
 
-        list_of_args[list_of_args.index(self.original_file_placeholder)] = file_info.absolute_path + file_info.extension
-        list_of_args[list_of_args.index(self.converted_file_placeholder)] = file_info.absolute_path + file_info.target_extension
-
+        list_of_args = self.replace_file_names(list_of_args, self.original_file_placeholder, file_info.absolute_path, file_info.extension)
+        list_of_args = self.replace_file_names(list_of_args, self.converted_file_placeholder, file_info.absolute_path, file_info.target_extension)
         list_of_args.insert(0, self.handbrake_executable)
 
         return self.__run(list_of_args)
+
+    def get_all_occurences_in_list(self, lst, item):
+        return [index for index, value in enumerate(lst) if item in value]
 
     @staticmethod
     def __success_of(process):
@@ -71,4 +73,13 @@ class Command:
     def __run(args):
         print('Current Command: ' + ' '.join([str(elem) for elem in args]) + '\n')
         return subprocess.run(args, stderr=subprocess.PIPE)
+
+    def replace_file_names(self, list, placeholder, path, ext):
+        for index in self.get_all_occurences_in_list(list, placeholder):
+            to_replace = path
+            if list[index] == placeholder:
+                to_replace += ext
+
+            list[index] = list[index].replace(placeholder, to_replace)
+        return list
 
